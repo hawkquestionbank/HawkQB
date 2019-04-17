@@ -6,4 +6,6 @@ get 'about' => 'pages#about'
 
 get 'login' => 'pages#login'
 
+get 'users' => 'pages#users'
+
 end
