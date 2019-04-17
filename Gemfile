@@ -5,8 +5,12 @@ ruby '2.6.0'
 
 gem 'devise', '~> 4.2'
 
+#using this gem to prevent deprecation interface warning with rake db:migrate
+gem 'sprockets', '3.6.3'
+
 gem "therubyracer"
-gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem 'less-rails', '~> 4.0'
+
 gem "twitter-bootstrap-rails"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
