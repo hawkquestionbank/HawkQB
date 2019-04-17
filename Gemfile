@@ -5,6 +5,8 @@ ruby '2.6.0'
 
 gem 'devise', '~> 4.2'
 
+gem 'pg', '~> 1.1', '>= 1.1.4'
+
 gem "therubyracer"
 #gem 'less-rails', '~> 4.0'
 
