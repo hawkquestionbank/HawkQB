@@ -5,6 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable, :trackable
 
   def full_name
-    first_name + ' ' + last_name
+    (first_name.nil? ? "":first_name) + ' ' + (last_name.nil? ? "":last_name)
   end
 end
