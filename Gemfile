@@ -3,7 +3,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.0'
 
+# for user model and log in/out feature
 gem 'devise', '~> 4.2'
+
+# for authentication
+gem 'petergate', '~> 1.7'
 
 gem 'pg', '~> 1.1', '>= 1.1.4'
 
