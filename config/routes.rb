@@ -11,4 +11,7 @@ Rails.application.routes.draw do
 
   get 'users' => 'pages#users'
 
+  get 'admin_dashboard/list'
+  get 'student_dashboard/list'
+  get 'instructor_dashboard/list'
 end
