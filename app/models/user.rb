@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
+  has_many :courses, class_name: 'Course', foreign_key: 'creator_user_id', dependent: :destroy
+
   def full_name
     combined_name = (first_name.nil? ? "":first_name) + ' ' + (last_name.nil? ? "":last_name)
     if combined_name.length <= 1
