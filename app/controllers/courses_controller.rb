@@ -23,6 +23,8 @@ class CoursesController < ApplicationController
   # POST /courses
   def create
     @course = Course.new(course_params)
+    # use the current_user's id as the creator_user_id of the new course
+    @course.creator_user_id = current_user.id
 
     if @course.save
       redirect_to @course, notice: 'Course was successfully created.'
@@ -54,6 +56,6 @@ class CoursesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def course_params
-      params[:course]
+      params.require(:course).permit(:title)
     end
 end
