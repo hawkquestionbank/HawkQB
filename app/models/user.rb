@@ -7,14 +7,15 @@ class User < ActiveRecord::Base
   petergate(roles: [:admin, :instructor, :student], multiple: false)                        ##
 
   ############################################################################################ 
- 
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
-  has_many :courses, class_name: 'Course', foreign_key: 'creator_user_id', dependent: :destroy
+  has_many :own_courses, class_name: 'Course', foreign_key: 'creator_user_id', dependent: :destroy
+  has_many :course_registrations
+  has_many :courses, through: :course_registrations
 
   def full_name
     combined_name = (first_name.nil? ? "":first_name) + ' ' + (last_name.nil? ? "":last_name)
