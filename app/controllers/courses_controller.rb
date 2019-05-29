@@ -1,9 +1,10 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-  access all: [:index, :show, :new, :edit, :create, :update, :destroy], user: :all
+  access all: [:show], instructor: {except: [:index]}, admin: :all
 
   # GET /courses
   def index
+    # this view should be removed later - we used dashboards instead
     @courses = Course.all
   end
 
