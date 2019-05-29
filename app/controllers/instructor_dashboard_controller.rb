@@ -1,5 +1,7 @@
 class InstructorDashboardController < ApplicationController
-  access instructor: :all
+
+  access [:instructor, :admin] => :all
+  
   def list
     @courses = Course.where(creator_user_id: current_user.id)
   end
