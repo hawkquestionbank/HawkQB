@@ -28,7 +28,7 @@ class CoursesController < ApplicationController
     @course.creator_user_id = current_user.id
 
     if @course.save
-      redirect_to @course, notice: 'Course was successfully created.'
+      redirect_to redirect_to_dashboard, notice: 'Course was successfully created.'
     else
       render :new
     end
@@ -46,7 +46,7 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   def destroy
     @course.destroy
-    redirect_to courses_url, notice: 'Course was successfully destroyed.'
+    redirect_to redirect_to_dashboard, notice: 'Course was successfully destroyed.'
   end
 
   private
@@ -58,5 +58,13 @@ class CoursesController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def course_params
       params.require(:course).permit(:title)
+    end
+
+    def redirect_to_dashboard
+      if logged_in?(:admin)
+        admin_dashboard_list_path
+      else
+        instructor_dashboard_list_path
+      end
     end
 end
