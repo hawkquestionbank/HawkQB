@@ -1,1 +1,24 @@
-views/student_dashboard/list.html.erb
+<p id="notice"><%= notice %></p>
+
+<h1>Courses</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @courses.each do |course| %>
+    <tr>
+      <td> <%= course.title %> </td>
+      <td> <%= course.created_at %> </td>
+      <td> <%= course.updated_at %> </td>
+      <td> <%= User.find(course.creator_user_id).full_name %> </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
