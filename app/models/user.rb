@@ -13,13 +13,16 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
   has_many :own_courses, class_name: 'Course', foreign_key: 'creator_user_id', dependent: :destroy
   has_many :course_registrations
   has_many :courses, through: :course_registrations
 
   def full_name
     combined_name = (first_name.nil? ? "":first_name) + ' ' + (last_name.nil? ? "":last_name)
-    if combined_name.length <= 1
+    if combined_name.length <= 3
       combined_name = "please update your user name"
     end
     combined_name
