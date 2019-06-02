@@ -32,3 +32,6 @@
 
 # Ignore IDE-related files
 .idea/*
+
+# Ignore IDE-related files
+/config/database.yml
