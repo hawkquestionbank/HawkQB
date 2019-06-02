@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_01_180157) do
+ActiveRecord::Schema.define(version: 2019_06_02_034951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(version: 2019_06_01_180157) do
     t.string "token"
   end
 
-  create_table "micro_credential_maps_models", force: :cascade do |t|
+  create_table "micro_credential_maps", force: :cascade do |t|
     t.bigint "course_id"
     t.bigint "micro_credential_id"
-    t.index ["course_id"], name: "index_micro_credential_maps_models_on_course_id"
-    t.index ["micro_credential_id"], name: "index_micro_credential_maps_models_on_micro_credential_id"
+    t.index ["course_id"], name: "index_micro_credential_maps_on_course_id"
+    t.index ["micro_credential_id"], name: "index_micro_credential_maps_on_micro_credential_id"
   end
 
   create_table "micro_credentials", force: :cascade do |t|
