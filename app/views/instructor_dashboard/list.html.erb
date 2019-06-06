@@ -13,7 +13,7 @@
   <% @courses.each do |course| %>
     <tr>
       <td> <%= course.title %> </td>
-      <td><%= link_to 'Show', course %></td>
+      <td><%= link_to 'Display', course %></td>
       <td><%= link_to 'Edit', edit_course_path(course) %></td>
       <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
@@ -24,3 +24,6 @@
 <br>
 
 <%= link_to 'New Course', new_course_path %>
+
+<h1>Micro_credentials created by yourself</h1>
+
