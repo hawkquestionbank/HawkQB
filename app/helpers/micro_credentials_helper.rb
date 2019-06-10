@@ -1,0 +1,2 @@
+module MicroCredentialsHelper
+end

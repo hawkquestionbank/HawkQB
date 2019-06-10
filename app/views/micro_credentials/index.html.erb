@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Micro Credentials</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @micro_credentials.each do |micro_credential| %>
+      <tr>
+        <td><%= link_to 'Show', micro_credential %></td>
+        <td><%= link_to 'Edit', edit_micro_credential_path(micro_credential) %></td>
+        <td><%= link_to 'Destroy', micro_credential, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Micro Credential', new_micro_credential_path %>
