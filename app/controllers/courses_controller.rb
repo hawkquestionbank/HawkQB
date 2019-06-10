@@ -52,20 +52,24 @@ class CoursesController < ApplicationController
   def self_register_using_token
     respond_to do |format|
       begin
+        # check whether the user is valid
         user = User.find(params["user_id"])
         if (user.nil?)
           error_message = 'Try to login again'
         end
 
+        # check whether there is a course with such token
         course = Course.find_by_token(params["course"]["token"])
         if course.nil?
           error_message = 'No such course with this token'
         end
 
+        # check whether this student is already in the course
         registration = CourseRegistration.where(user_id: user.id, course_id: course.id)
         if (!registration.empty?)
           error_message = 'You are already in this course'
         else
+          # create a new course registration record
           registration = CourseRegistration.new(user_id: user.id, course_id: course.id)
           if (registration.save)
             message = 'You have been added successfully.'
