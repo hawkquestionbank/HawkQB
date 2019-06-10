@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+
+<%= form_tag :controller => 'courses', :action => 'self_register_using_token', :method => 'post' do %>
+  <%= hidden_field_tag 'user_id', current_user.id %>
+  Have a course token? Self-register here: <%= text_field(:course, :token, size:20)%>
+  <input type='submit' value='Add' class="btn btn-sm btn-secondary"/>
+<% end %>
+
 <h1>Courses</h1>
 
 <table>

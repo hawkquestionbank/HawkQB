@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-  access all: [:show], instructor: {except: [:index]}, admin: :all
+  access all: [:show], instructor: {except: [:index]}, admin: :all, student: [:self_register_using_token]
 
   # GET /courses
   def index
@@ -47,6 +47,37 @@ class CoursesController < ApplicationController
   def destroy
     @course.destroy
     redirect_to redirect_to_dashboard, notice: 'Course was successfully destroyed.'
+  end
+
+  def self_register_using_token
+    respond_to do |format|
+      begin
+        user = User.find(params["user_id"])
+        if (user.nil?)
+          error_message = 'Try to login again'
+        end
+
+        course = Course.find_by_token(params["course"]["token"])
+        if course.nil?
+          error_message = 'No such course with this token'
+        end
+
+        registration = CourseRegistration.where(user_id: user.id, course_id: course.id)
+        if (!registration.empty?)
+          error_message = 'You are already in this course'
+        else
+          registration = CourseRegistration.new(user_id: user.id, course_id: course.id)
+          if (registration.save)
+            message = 'You have been added successfully.'
+            format.html { redirect_to({controller: "student_dashboard", action: "list"}, notice: message ) }
+          else
+            error_message = 'Could not be added to the course due to internal error.'
+          end
+        end
+        rescue
+          format.html { redirect_to({controller: "student_dashboard", action: "list"}, alert: error_message) }
+      end
+    end
   end
 
   private
