@@ -1,25 +1,46 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <h3>HawkQB</h3>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">HawkQB</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="navbar-collapse collapse show" id="navbarColor01" style="">
     <ul class="navbar-nav mr-auto">
-      <%= link_to "Home", root_path, class: "nav-item" %>
-      <%= link_to "About", about_path, class: "nav-item" %>
+      <li class="nav-item">
+        <%= link_to "Home", root_path, class: "nav-link"%> <span class="sr-only">(current)</span>
+      </li>
 
       <% if current_user %>
-        <%= link_to "Logout", destroy_user_session_path, class: "nav-link", method: :delete %>
+        <li class="nav-item">
+          <%= link_to "Logout", destroy_user_session_path, class: "nav-link", method: :delete %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Admin dashboard", admin_dashboard_list_path, class: "nav-link" if logged_in?(:admin)%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Instructor dashboard", instructor_dashboard_list_path, class: "nav-link" if logged_in?(:instructor)%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Student dashboard", student_dashboard_list_path, class: "nav-link" if logged_in?(:student)%>
+        </li>
 
-        <%= link_to "Admin dashboard", admin_dashboard_list_path, class: "nav-link" if logged_in?(:admin)%>
-        <%= link_to "Instructor dashboard", instructor_dashboard_list_path, class: "nav-item" if logged_in?(:instructor)%>
-        <%= link_to "Student dashboard", student_dashboard_list_path, class: "nav-item" if logged_in?(:student)%>
-
-        (Current user: <%= link_to  current_user.full_name, edit_user_registration_path, class: "nav-link" %>)
+        <li class="nav-item">
+          <%= link_to  current_user.full_name, edit_user_registration_path, class: "nav-link" %>
+        </li>
       <% else %>
-        <%= link_to "Register", new_user_registration_path, class: "nav-link" %>
-        <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+        <li class="nav-item">
+          <%= link_to "Register", new_user_registration_path, class: "nav-link" %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+        </li>
       <% end %>
 
 
+      <li class="nav-item">
+        <%= link_to "About", about_path, class: "nav-link" %>
+      </li>
     </ul>
   </div>
 </nav>
