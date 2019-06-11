@@ -15,5 +15,10 @@
   <%= User.find(@course.creator_user_id).full_name %>
 </p>
 
+<p>
+  <strong>Token:</strong>
+  <%= @course.token %>
+</p>
+
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>
