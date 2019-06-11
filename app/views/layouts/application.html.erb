@@ -9,13 +9,12 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-
   <body>
     <%= render 'layouts/navbar'%>
     <div class = 'container'>
-    <%= yield %>
-  </div>
+      <%= yield %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
   </body>
 </html>
