@@ -12,11 +12,10 @@
   <tbody>
   <% @courses.each do |course| %>
     <tr>
-      <td> <%= course.title %> </td>
+      <td> <%=link_to course.title, course %> </td>
       <td> <%= course.created_at %> </td>
       <td> <%= course.updated_at %> </td>
       <td> <%= User.find(course.creator_user_id).full_name %> </td>
-      <td><%= link_to 'Show', course %></td>
       <td><%= link_to 'Edit', edit_course_path(course) %></td>
       <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
