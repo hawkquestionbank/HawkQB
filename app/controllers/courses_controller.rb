@@ -56,18 +56,21 @@ class CoursesController < ApplicationController
         user = User.find(params["user_id"])
         if (user.nil?)
           error_message = 'Try to login again'
+          raise error_message
         end
 
         # check whether there is a course with such token
         course = Course.find_by_token(params["course"]["token"])
         if course.nil?
-          error_message = 'No such course with this token'
+          error_message = 'No such course with this token: ' + params["course"]["token"]
+          raise error_message
         end
 
         # check whether this student is already in the course
         registration = CourseRegistration.where(user_id: user.id, course_id: course.id)
         if (!registration.empty?)
           error_message = 'You are already in this course'
+          raise error_message
         else
           # create a new course registration record
           registration = CourseRegistration.new(user_id: user.id, course_id: course.id)
@@ -76,13 +79,15 @@ class CoursesController < ApplicationController
             format.html { redirect_to({controller: "student_dashboard", action: "list"}, notice: message ) }
           else
             error_message = 'Could not be added to the course due to internal error.'
+            raise error_message
           end
         end
-        rescue
-          format.html { redirect_to({controller: "student_dashboard", action: "list"}, alert: error_message) }
+      rescue
+        format.html { redirect_to({controller: "student_dashboard", action: "list"}, alert: error_message) }
       end
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
