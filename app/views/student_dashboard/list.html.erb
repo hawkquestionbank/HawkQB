@@ -1,6 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-
 <%= form_tag :controller => 'courses', :action => 'self_register_using_token', :method => 'post' do %>
   <%= hidden_field_tag 'user_id', current_user.id %>
   Have a course token? Self-register here: <%= text_field(:course, :token, size:20)%>
@@ -9,23 +8,35 @@
 
 <h1>Courses</h1>
 
-<table>
-  <thead>
-  <tr>
-    <th colspan="3"></th>
-  </tr>
-  </thead>
+<% @courses.each do |course| %>
 
-  <tbody>
-  <% @courses.each do |course| %>
-    <tr>
-      <td> <%= course.title %> </td>
-      <td> <%= course.created_at %> </td>
-      <td> <%= course.updated_at %> </td>
-      <td> <%= User.find(course.creator_user_id).full_name %> </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+  <div class="card border-primary">
+    <div class="card-body">
+      <h4 class="card-title"><%= course.title %></h4>
+      <h6 class="card-subtitle mb-2 text-muted">Instructor: <%= User.find(course.creator_user_id).full_name %></h6>
+      <p class="card-text">Place holder for course announcement</p>
+      <a href="#" class="card-link">Review core competencies</a>
+      <a href="#" class="card-link">Review questions</a>
+    </div>
+
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Finished question(s)
+        <span class="badge badge-primary badge-pill">14</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Unfinished question(s)
+        <span class="badge badge-primary badge-pill">2</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Micro-credential(s) practiced
+        <span class="badge badge-primary badge-pill">1</span>
+      </li>
+    </ul>
+
+  </div>
+
+<% end %>
+
 
 <br>
