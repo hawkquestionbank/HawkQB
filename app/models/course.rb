@@ -3,6 +3,7 @@ class Course < ActiveRecord::Base
   has_many :micro_credential_maps
 
   validates :title, presence: true
+  validates :token, :uniqueness=> {:allow_blank => true, :case_sensitive => true}
 
   has_many :course_resgistrations
   has_many :users, through: :course_registrations
