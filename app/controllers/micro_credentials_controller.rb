@@ -54,6 +54,6 @@ class MicroCredentialsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def micro_credential_params
-      params[:micro_credential]
+      params.require(:micro_credential).permit(:title, :identifier, :creator_user_id, :description)
     end
 end
