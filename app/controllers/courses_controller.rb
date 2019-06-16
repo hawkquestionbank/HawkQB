@@ -58,7 +58,7 @@ class CoursesController < ApplicationController
           error_message = 'Try to login again'
           raise error_message
         end
-
+        
         # check whether there is a course with such token
         course = Course.find_by_token(params["course"]["token"])
         if course.nil?
