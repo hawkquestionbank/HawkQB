@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+<div class="jumbotron">
+  <h1 class="display-3"><%= @micro_credential.identifier %>: <%= @micro_credential.title %></h1>
+  <p class="lead"><%= @micro_credential.description %></p>
+  <hr class="my-4">
+  <p class="lead">Created by <%= @micro_credential.creator.full_name %></p>
+</div>
+
 <% if logged_in?(:admin) or logged_in?(:instructor) and current_user.owns(@micro_credential) %>
   <%= link_to 'Edit', edit_micro_credential_path(@micro_credential) %>
 <% end %>

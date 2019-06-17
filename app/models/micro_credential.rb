@@ -5,4 +5,8 @@ class MicroCredential < ActiveRecord::Base
 	validates_presence_of :title, :message => "can't be empty"
 	validates_presence_of :identifier, :message => "can't be empty"
   validates_length_of :identifier, :maximum => 20
+
+  def creator
+    User.find(self.creator_user_id)
+  end
 end
