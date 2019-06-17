@@ -4,23 +4,26 @@
   <%= f.error_notification %>
 
   <%= render 'layouts/detailed_error_messages', f: f%>
+  <fieldset class="form-group">
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, :class => "form-control" %>
+      <small id="emailHelp" class="form-text text-muted">Please give this micro-credential a short title</small>
+    </div>
 
-  <div class="form-inputs">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
+    <div class="form-group">
+      <%= f.label :identifier %>
+      <%= f.text_field :identifier, :class => "form-control" %>
+      <small id="emailHelp" class="form-text text-muted">Please give this micro-credential a even shorter identifier, like: "Lecture01-print"</small>
+    </div>
 
-  <div class="form-inputs">
-    <%= f.label :identifier %>
-    <%= f.text_field :identifier %>
-  </div>
-
-  <div class="form-inputs">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, :class => "form-control", :rows => 4 %>
+    </div>
+  </fieldset>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, :class => "btn btn-primary" %>
   </div>
 <% end %>
