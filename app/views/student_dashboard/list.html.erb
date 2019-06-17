@@ -15,7 +15,8 @@
       <h4 class="card-title"><%= course.title %></h4>
       <h6 class="card-subtitle mb-2 text-muted">Instructor: <%= User.find(course.creator_user_id).full_name %></h6>
       <p class="card-text">Place holder for course announcement</p>
-      <a href="#" class="card-link">Review core competencies</a>
+
+      <%= link_to "Review core competencies", micro_credentials_study_path(:course_id => course.id), class: "card-link"%>
       <a href="#" class="card-link">Review questions</a>
     </div>
 

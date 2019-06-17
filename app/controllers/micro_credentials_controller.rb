@@ -46,6 +46,11 @@ class MicroCredentialsController < ApplicationController
     redirect_to micro_credentials_url, notice: 'Micro credential was successfully destroyed.'
   end
 
+  def study
+    @course = Course.find(params[:course_id])
+    @micro_credentials = @course.micro_credentials
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_micro_credential

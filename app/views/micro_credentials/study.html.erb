@@ -1,0 +1,38 @@
+<h1> Micro-credentials for course <%= @course.title %> </h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+        <th scope="col">Identifier</th>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+    <% @micro_credentials.each do |micro_credential| %>
+      <tr class="table-primary">
+        <th scope="row"> <%= micro_credential.identifier %></th>
+        <td><%= micro_credential.title %></td>
+        <td>Column content</td>
+        <td>Column content</td>
+      </tr>
+    <% end %>
+
+    <tr class="table-active">
+      <th scope="row">Sample unstarted MC</th>
+      <td>Column content</td>
+      <td>Column content</td>
+      <td>Column content</td>
+    </tr>
+
+    <tr class="table-secondary">
+      <th scope="row">Sample struggled MC</th>
+      <td>Column content</td>
+      <td>Column content</td>
+      <td>Column content</td>
+    </tr>
+
+  </tbody>
+</table>
