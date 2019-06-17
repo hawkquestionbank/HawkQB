@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_micro_credential_path(@micro_credential) %> |
-<%= link_to 'Back', micro_credentials_path %>
+<% if logged_in?(:admin) or logged_in?(:instructor) and current_user.owns(@micro_credential) %>
+  <%= link_to 'Edit', edit_micro_credential_path(@micro_credential) %>
+<% end %>

@@ -27,4 +27,8 @@ class User < ActiveRecord::Base
     end
     combined_name
   end
+
+  def owns target_object
+    self.id == target_object.creator_user_id
+  end
 end
