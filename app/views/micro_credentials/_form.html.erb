@@ -1,9 +1,18 @@
 
 <%= simple_form_for(@micro_credential) do |f| %>
+  <% print f.object.errors.full_messages %>
   <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= render 'layouts/detailed_error_messages', f: f%>
 
   <div class="form-inputs">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.label :identifier %>
+    <%= f.text_field :identifier %>
   </div>
 
   <div class="form-actions">
