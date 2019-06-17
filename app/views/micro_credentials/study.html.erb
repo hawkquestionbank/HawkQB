@@ -15,8 +15,8 @@
       <tr class="table-primary">
         <th scope="row"> <%= micro_credential.identifier %></th>
         <td><%= micro_credential.title %></td>
-        <td>Column content</td>
-        <td>Column content</td>
+
+        <td><%= button_to "view", micro_credential, :method=>"get", :class => "btn btn-info" %></td>
       </tr>
     <% end %>
 
