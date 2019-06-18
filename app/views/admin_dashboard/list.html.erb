@@ -18,7 +18,7 @@
       <th scope="row"><%=link_to course.title, course %></th>
       <td> <%= time_ago_in_words(course.created_at) %> </td>
       <td> <%= time_ago_in_words(course.updated_at) %> </td>
-      <td> <%= User.find(course.creator_user_id).full_name %> </td>
+      <td> <%= course.creator.full_name %> </td>
       <td><%= link_to 'Edit', edit_course_path(course) %></td>
       <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
