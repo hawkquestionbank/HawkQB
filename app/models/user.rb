@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true
 
   has_many :own_courses, class_name: 'Course', foreign_key: 'creator_user_id', dependent: :destroy
+  has_many :own_micro_credentials, class_name: 'MicroCredential', foreign_key: 'creator_user_id', dependent: :destroy
   has_many :course_registrations
   has_many :courses, through: :course_registrations
 

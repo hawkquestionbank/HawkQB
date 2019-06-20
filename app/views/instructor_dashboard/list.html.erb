@@ -1,28 +1,52 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Courses created by yourself</h1>
+<h1>Courses</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
   <tr>
-    <th colspan="3"></th>
+    <th scope="col">Title</th>
+    <th scope="col">Created at</th>
+    <th scope="col">Updated at</th>
+    <th scope="col">Actions</th>
   </tr>
   </thead>
-
   <tbody>
   <% @courses.each do |course| %>
-    <tr>
-      <td> <%= link_to course.title, course %> </td>
+    <tr class="table-active">
+      <th scope="row"><%=link_to course.title, course %></th>
+      <td> <%= time_ago_in_words(course.created_at) %> </td>
+      <td> <%= time_ago_in_words(course.updated_at) %> </td>
       <td><%= link_to 'Edit', edit_course_path(course) %></td>
       <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
+
   </tbody>
 </table>
 
 <br>
-
 <%= link_to 'New Course', new_course_path %>
+<hr class="my-4">
+<h1>Micro-credentials</h1>
 
-<h1>Micro_credentials created by yourself</h1>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">Title</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @micro_credentials.each do |micro_credential| %>
+    <tr class="table-active">
+      <th scope="row"><%=micro_credential.identifier %>: <%=link_to micro_credential.title, micro_credential %></th>
+      <td><%= link_to 'Edit', edit_micro_credential_path(micro_credential) %></td>
+      <td><%= link_to 'Destroy', micro_credential, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
 
+  </tbody>
+</table>
+<br>
+<%= link_to 'New Micro Credential', new_micro_credential_path %>
