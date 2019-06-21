@@ -23,6 +23,8 @@ class MicroCredentialsController < ApplicationController
   # POST /micro_credentials
   def create
     @micro_credential = MicroCredential.new(micro_credential_params)
+    # use the current_user's id as the creator_user_id of the new micro_credential
+    @micro_credential.creator_user_id = current_user.id
 
     if @micro_credential.save
       redirect_to @micro_credential, notice: 'Micro credential was successfully created.'
