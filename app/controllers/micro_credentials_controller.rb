@@ -1,6 +1,7 @@
 class MicroCredentialsController < ApplicationController
   before_action :set_micro_credential, only: [:show, :edit, :update, :destroy]
   access all: [:index, :show, :new, :edit, :create, :update, :destroy], user: :all
+  access all: [:show], instructor: {except: [:study, :index]}, admin: :all, student: [:show, :study]
 
   # GET /micro_credentials
   def index
