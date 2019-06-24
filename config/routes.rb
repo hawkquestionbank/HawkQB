@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :questions
   get 'micro_credentials/study'
   resources :micro_credentials
   resources :courses
