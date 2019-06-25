@@ -5,7 +5,7 @@ class Course < ActiveRecord::Base
   validates_presence_of :title, :message => "can't be empty"
   validates :token, :uniqueness=> {:allow_blank => true, :case_sensitive => true}
 
-  has_many :course_resgistrations
+  has_many :course_registrations
   has_many :users, through: :course_registrations
   has_many :micro_credentials, through: :micro_credential_maps
 

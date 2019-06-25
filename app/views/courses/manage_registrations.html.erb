@@ -3,8 +3,8 @@
 
 <%= form_tag :controller => 'courses', :action => 'add_student_using_email', :method => 'post' do %>
   <label> Add new student by their email: </label>
-  <%= hidden_field_tag(:course_id , @course.id) %>
-  <%= text_field(:User, :email)%>
+  <%= hidden_field_tag(:id , @course.id) %>
+  <%= text_field(:user, :email)%>
   <input type='submit' value='Add' class="btn btn-sm btn-secondary"/>
 <% end %>
 

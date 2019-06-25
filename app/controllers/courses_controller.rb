@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :manage_registrations, :add_student_using_email]
   access all: [:show], instructor: {except: [:index]}, admin: :all, student: [:self_register_using_token]
 
   # GET /courses
@@ -47,6 +47,42 @@ class CoursesController < ApplicationController
   def destroy
     @course.destroy
     redirect_to redirect_to_dashboard, notice: 'Course was successfully destroyed.'
+  end
+
+  def manage_registrations
+  end
+
+  def add_student_using_email
+    print ":::"
+    print params
+    respond_to do |format|
+      begin
+        # check whether the user is valid
+        user = User.find_by_email(params["user"]["email"])
+        if (user.nil?)
+          error_message = 'Email does not exist'
+          raise error_message
+        end
+        # check whether this student is already in the course
+        registration = CourseRegistration.where(user_id: user.id, course_id: @course.id)
+        if (!registration.empty?)
+          error_message = 'Student is already in course'
+          raise error_message
+        else
+          # create a new course registration record
+          registration = CourseRegistration.new(user_id: user.id, course_id: @course.id)
+          if (registration.save)
+            message = 'Student has been added successfully.'
+            format.html { redirect_to({controller: "courses", action: "manage_registrations", id: @course.id}, notice: message ) }
+          else
+            error_message = 'Could not be added to the course due to internal error.'
+            raise error_message
+          end
+        end
+      rescue
+        format.html { redirect_to({controller: "courses", action: "manage_registrations", id: @course.id}, alert: error_message) }
+      end
+    end
   end
 
   def self_register_using_token
