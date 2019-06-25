@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'admin_dashboard/list'
   get 'student_dashboard/list'
   get 'instructor_dashboard/list'
+  get 'courses/manage_registrations'
   post 'courses/self_register_using_token'
-
+  post 'courses/add_student_with_email'
 end
