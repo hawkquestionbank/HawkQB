@@ -1,0 +1,18 @@
+<%= simple_form_for(@question) do |f| %>
+
+  <%= f.error_notification %>
+
+  <%= render 'layouts/detailed_error_messages', f: f%>
+
+  <div class="form-inputs">
+    <%= f.label :title, class: "col-sm-2 col-form-label" %>
+    <%= f.text_field :title, class: "form-control" %>
+
+    <%= f.label :description, class: "col-sm-2 col-form-label"  %>
+    <%= f.text_area :description, class: "form-control", rows: "3" %>
+
+    <%= hidden_field_tag(:type , "MultipleChoice") %>
+
+    <%= f.button :submit, class: "btn btn-primary"%>
+  </div>
+<% end %>
