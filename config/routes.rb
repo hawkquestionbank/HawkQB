@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  post 'questions/new_multiple_choice'
   resources :questions
+
   get 'micro_credentials/study'
   resources :micro_credentials
 
