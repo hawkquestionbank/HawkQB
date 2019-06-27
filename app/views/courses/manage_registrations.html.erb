@@ -9,9 +9,30 @@
 <% end %>
 
 <br>
-<table>
-
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Full Name</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <% counter = 0 %>
   <% @course.users.each do |user| %>
-	  <tr><td> <%= user.full_name %> </td></tr>
+  	<% if counter.even? %> 
+      <tr class="table-primary">
+        <th scope="row"><%= user.full_name %></th>
+        <td>Column content</td>
+      
+      </tr>
+    <% else %> 
+      <tr>
+        <th scope="row"><%= user.full_name %></th>
+        <td>Column content</td>
+      
+      </tr>
+    <% end %>
+    <% counter +=1 %>
   <% end %>
 </table>
+
+
