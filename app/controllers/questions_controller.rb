@@ -1,10 +1,11 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_type
   access all: [:index, :show, :new, :edit, :create, :update, :destroy], user: :all
 
   # GET /questions
   def index
-    @questions = Question.all
+    @questions = type_class.all
   end
 
   # GET /questions/1
@@ -16,6 +17,11 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
+  # GET /questions/new
+  def new_multiple_choice
+    @question = Question.new
+  end
+
   # GET /questions/1/edit
   def edit
   end
@@ -23,6 +29,8 @@ class QuestionsController < ApplicationController
   # POST /questions
   def create
     @question = Question.new(question_params)
+    @question.type = params[:type]
+    @question.creator_user_id = current_user.id
 
     if @question.save
       redirect_to @question, notice: 'Question was successfully created.'
@@ -54,6 +62,18 @@ class QuestionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def question_params
-      params[:question]
+      params.require(:question).permit(:title, :description, :type)
+    end
+
+    def set_type
+      @race = type
+    end
+
+    def type
+      Question.types.include?(params[:type]) ? params[:type].camelize : "Question"
+    end
+
+    def type_class
+      type.constantize
     end
 end

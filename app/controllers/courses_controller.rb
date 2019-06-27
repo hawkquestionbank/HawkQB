@@ -53,8 +53,6 @@ class CoursesController < ApplicationController
   end
 
   def add_student_using_email
-    print ":::"
-    print params
     respond_to do |format|
       begin
         # check whether the user is valid
