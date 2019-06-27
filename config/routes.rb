@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   post 'questions/new_multiple_choice'
   resources :questions
+  resources :multiple_choices, controller: 'questions', type: 'multiple_choice'
+  resources :multiple_selects, controller: 'questions', type: 'multiple_select'
 
   get 'micro_credentials/study'
   resources :micro_credentials

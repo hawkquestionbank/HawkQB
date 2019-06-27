@@ -1,10 +1,11 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_type
   access all: [:index, :show, :new, :edit, :create, :update, :destroy], user: :all
 
   # GET /questions
   def index
-    @questions = Question.all
+    @questions = type_class.all
   end
 
   # GET /questions/1
@@ -64,4 +65,15 @@ class QuestionsController < ApplicationController
       params.require(:question).permit(:title, :description, :type)
     end
 
+    def set_type
+      @race = type
+    end
+
+    def type
+      Question.types.include?(params[:type]) ? params[:type].camelize : "Question"
+    end
+
+    def type_class
+      type.constantize
+    end
 end
