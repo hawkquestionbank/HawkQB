@@ -20,6 +20,13 @@
   </tbody>
 </table>
 
+<%= link_to "See all multiple choice questions", sti_question_path("multiple_choice") %>
+<br>
+<%= link_to "See all multiple select questions", sti_question_path("multiple_select") %>
+<br>
+
+<%= link_to 'See all question', sti_question_path %>
+
 <br>
 
 <%= link_to 'New Mutilple Choice Question', questions_new_multiple_choice_path, method: :post %>
