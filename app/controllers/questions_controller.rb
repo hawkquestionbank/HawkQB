@@ -66,7 +66,7 @@ class QuestionsController < ApplicationController
     end
 
     def set_type
-      @race = type
+      @type = type
     end
 
     def type
