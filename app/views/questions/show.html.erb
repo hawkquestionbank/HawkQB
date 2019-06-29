@@ -1,5 +1,6 @@
 <div class="jumbotron">
-  <h1 class="display-3"> (<%= @question.type %>) <%= @question.title %> </h1>
+  <h1 class="display-3"> <%= @question.title %> </h1>
+  <p>  (<%= @question.type %>) </p>
   <p class="lead"><%= @question.description %></p>
   <hr class="my-4">
   <p class="lead">Created by <%= @question.creator.full_name %></p>
