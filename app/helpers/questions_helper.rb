@@ -11,4 +11,8 @@ module QuestionsHelper
   def format_action(action)
     action ? "#{action}_" : ""
   end
+
+  def form_name(type)
+    type.underscore+"_form"
+  end
 end

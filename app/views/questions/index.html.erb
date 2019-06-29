@@ -28,5 +28,9 @@
 <%= link_to 'See all question', sti_question_path %>
 
 <br>
+<br>
 
-<%= link_to 'New Mutilple Choice Question', questions_new_multiple_choice_path, method: :post %>
+<%= link_to 'New Mutilple Choice Question', sti_question_path("multiple_choice", nil, :new), method: :get %>
+
+<br>
+<%= link_to 'New Mutilple Select Question', sti_question_path("multiple_select", nil, :new), method: :get %>
