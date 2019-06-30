@@ -13,6 +13,6 @@ module QuestionsHelper
   end
 
   def form_name(type)
-    type.underscore+"_form"
+    type == "Question"? "form" : type.underscore+"_form"
   end
 end
