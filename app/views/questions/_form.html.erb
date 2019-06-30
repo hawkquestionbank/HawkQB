@@ -1,4 +1,4 @@
-
+You need to specify which type of question do you want to create.
 <%= simple_form_for(@question) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
