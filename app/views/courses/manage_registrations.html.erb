@@ -23,12 +23,11 @@
         <th scope="row"><%= user.full_name %></th>
         <td><%= button_to 'Drop Student', courses_drop_student_path(:id => @course.id, :student_id => user.id), class: "btn btn-primary" %> </td>
 
-      
       </tr>
     <% else %> 
       <tr>
         <th scope="row"><%= user.full_name %></th>
-        <td>Drop Student</td>
+        <td><%= button_to 'Drop Student', courses_drop_student_path(:id => @course.id, :student_id => user.id), class: "btn btn-outline-primary" %> </td>
       
       </tr>
     <% end %>
