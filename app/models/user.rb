@@ -20,6 +20,9 @@ class User < ActiveRecord::Base
   has_many :own_micro_credentials, class_name: 'MicroCredential', foreign_key: 'creator_user_id', dependent: :destroy
   has_many :course_registrations
   has_many :courses, through: :course_registrations
+  has_many :own_questions, class_name: 'Question', foreign_key: 'creator_user_id', dependent: :destroy
+  has_many :own_multiple_choices, class_name: 'MultipleChoice', foreign_key: 'creator_user_id', dependent: :destroy
+
 
   def full_name
     combined_name = (first_name.nil? ? "":first_name) + ' ' + (last_name.nil? ? "":last_name)
