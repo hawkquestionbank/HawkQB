@@ -21,18 +21,20 @@
   	<% if counter.even? %> 
       <tr class="table-primary">
         <th scope="row"><%= user.full_name %></th>
-        <td>Column content</td>
+        <td><%= button_to 'Drop Student', courses_drop_student_path(:id => @course.id, :student_id => user.id), class: "btn btn-primary" %> </td>
+
       
       </tr>
     <% else %> 
       <tr>
         <th scope="row"><%= user.full_name %></th>
-        <td>Column content</td>
+        <td>Drop Student</td>
       
       </tr>
     <% end %>
     <% counter +=1 %>
   <% end %>
 </table>
-
-
+<div class = "media float-right position-relative">
+<%= image_tag("logos/seahawk.jpg") %>
+</div>

@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :manage_registrations, :add_student_using_email]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :manage_registrations, :add_student_using_email, :drop_student]
   access all: [:show], instructor: {except: [:index]}, admin: :all, student: [:self_register_using_token]
 
   # GET /courses
@@ -50,6 +50,18 @@ class CoursesController < ApplicationController
   end
 
   def manage_registrations
+  end
+
+  def drop_student
+    course_registration = CourseRegistration.find_by(user_id: params[:student_id], course_id: @course.id)
+    begin
+      course_registration.destroy
+      message = 'Student has been removed from this course.'
+      redirect_to({controller: "courses", action: "manage_registrations", id: @course.id}, notice: message )
+    rescue
+      message = 'Something went wrong. Please check whether student is currently in course.'
+      redirect_to({controller: "courses", action: "manage_registrations", id: @course.id}, alert: message )
+    end
   end
 
   def add_student_using_email

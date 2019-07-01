@@ -7,9 +7,12 @@ Rails.application.routes.draw do
   get 'micro_credentials/study'
   resources :micro_credentials
 
+
   get 'courses/manage_registrations'
+  post 'courses/drop_student'
   post 'courses/self_register_using_token'
   post 'courses/add_student_using_email'
+
 
   resources :courses
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
