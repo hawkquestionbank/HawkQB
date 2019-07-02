@@ -20,17 +20,24 @@
   </tbody>
 </table>
 
+<hr>
+
 <%= link_to "See all multiple choice questions", sti_question_path("multiple_choice") %>
 <br>
 <%= link_to "See all multiple select questions", sti_question_path("multiple_select") %>
+<br>
+<%= link_to "See all fill in the blank questions", sti_question_path("fill_in_the_blank") %>
 <br>
 
 <%= link_to 'See all question', sti_question_path %>
 
 <br>
 <br>
-
+<hr>
 <%= link_to 'New Mutilple Choice Question', sti_question_path("multiple_choice", nil, :new), method: :get %>
 
 <br>
 <%= link_to 'New Mutilple Select Question', sti_question_path("multiple_select", nil, :new), method: :get %>
+
+<br>
+<%= link_to 'New Fill in the Blank Question', sti_question_path("fill_in_the_blank", nil, :new), method: :get %>
