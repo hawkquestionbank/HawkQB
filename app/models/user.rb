@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   has_many :courses, through: :course_registrations
   has_many :own_questions, class_name: 'Question', foreign_key: 'creator_user_id', dependent: :destroy
   has_many :own_multiple_choices, class_name: 'MultipleChoice', foreign_key: 'creator_user_id', dependent: :destroy
+  has_many :own_multiple_selects, class_name: 'MultipleSelect', foreign_key: 'creator_user_id', dependent: :destroy
+  has_many :own_fill_in_the_blanks, class_name: 'FillInTheBlank', foreign_key: 'creator_user_id', dependent: :destroy
 
 
   def full_name
