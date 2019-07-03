@@ -17,11 +17,6 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
-  # GET /questions/new
-  def new_multiple_choice
-    @question = Question.new
-  end
-
   # GET /questions/1/edit
   def edit
   end
