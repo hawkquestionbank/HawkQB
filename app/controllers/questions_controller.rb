@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :set_type
-  access all: [:index, :show, :new, :edit, :create, :update, :destroy], user: :all
+  access all: [:show], instructor: {except: [:index]}, admin: :all
 
   # GET /questions
   def index
