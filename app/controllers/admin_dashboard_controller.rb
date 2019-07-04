@@ -10,7 +10,7 @@ class AdminDashboardController < ApplicationController
   	@users = User.all
   end
 
-  def edit_user_details
+  def edit_users_details
     @user = User.find(params[:id])
   end
 end
