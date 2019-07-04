@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'courses/drop_student'
   post 'courses/self_register_using_token'
   post 'courses/add_student_using_email'
+  get 'admin_dashboard/manage_users'
 
 
   resources :courses

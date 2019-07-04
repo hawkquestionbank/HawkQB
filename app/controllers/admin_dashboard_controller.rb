@@ -5,4 +5,8 @@ class AdminDashboardController < ApplicationController
     @courses = Course.all
     @micro_credentials = MicroCredential.all
   end
+
+  def manage_users
+  	@users = User.all
+  end
 end
