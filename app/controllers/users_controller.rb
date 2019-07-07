@@ -34,8 +34,24 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
+    filtered_params = user_params
+
+    # if not @user.valid_password?(filtered_params[:current_password])
+    #   redirect_to @user, alert: 'Incorrect password'
+    # else
+    #   filtered_params.delete(:current_password)
+    # end
+
+    if filtered_params[:current_password].blank?
+      filtered_params.delete(:password)
+      filtered_params.delete(:current_password)
+      filtered_params.delete(:password_confirmation)
+    end
+
+    if filtered_params.has_key?(:current_password) & @user.update_with_password(filtered_params)
+      redirect_to users_path, notice: 'User was successfully updated. (password also updated)'
+    elsif not filtered_params.has_key?(:current_password) & @user.update_without_password(filtered_params)
+      redirect_to users_path, notice: 'User was successfully updated. (password not updated)'
     else
       render :edit
     end
@@ -55,7 +71,7 @@ class UsersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name)
+    params.require(:user).permit(:email, :first_name, :last_name, :current_password, :password, :password_confirmation,:role)
   end
 
 end
