@@ -23,13 +23,11 @@
     <%= f.input :last_name,
                 required: true,
                 input_html: { autocomplete: "last_name" } %>
-    <%= f.input :role,
-                hint: "please submit a request to the admin if you want to become an instructor",
-                required: true,
-                disabled: true,
-                input_html: { autocomplete: "role" } %>
   </div>
-
+  <div class="form-group">
+    <label for="role">Role</label>
+    <%= f.select :role, options_for_select(['admin', 'instructor', 'student'], :selected => @user.role) %>
+  </div>
   <div class="form-actions">
     <%= f.button :submit, "Update", class: "btn btn-primary" %>
   </div>
