@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_27_024533) do
+ActiveRecord::Schema.define(version: 2019_07_07_223154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.text "txt"
+    t.boolean "is_correct", default: false
+    t.integer "question_id"
+  end
 
   create_table "course_registrations", force: :cascade do |t|
     t.bigint "user_id"
@@ -74,6 +80,7 @@ ActiveRecord::Schema.define(version: 2019_06_27_024533) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "answers", "questions"
   add_foreign_key "courses", "users", column: "creator_user_id"
   add_foreign_key "micro_credentials", "users", column: "creator_user_id"
   add_foreign_key "questions", "users", column: "creator_user_id"
