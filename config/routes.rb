@@ -8,17 +8,17 @@ Rails.application.routes.draw do
   get 'micro_credentials/study'
   resources :micro_credentials
 
-
   get 'courses/manage_registrations'
   post 'courses/drop_student'
   post 'courses/self_register_using_token'
   post 'courses/add_student_using_email'
-  get 'admin_dashboard/manage_users'
-  get 'admin_dashboard/edit_user_details'
-
 
   resources :courses
-  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
+  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }, :path_prefix => 'my'
+  scope "/admin" do
+    resources :users
+  end
+
   get 'pages/home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #
