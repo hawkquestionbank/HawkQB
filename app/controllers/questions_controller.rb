@@ -33,10 +33,10 @@ class QuestionsController < ApplicationController
 
     if @question.save
 
-      correct_keys = params[:optionsRadios]
+      correct_keys = correct_keys_from_params
 
       params[:quiz_question_choices].keys.each do |choice_key|
-        a = Answer.new(txt: params[:quiz_question_choices][choice_key][:txt], is_correct: (choice_key == correct_keys), question_id: @question.id)
+        a = Answer.new(txt: params[:quiz_question_choices][choice_key][:txt], is_correct: (correct_keys.include? choice_key), question_id: @question.id)
         a.save
       end
 
@@ -44,6 +44,23 @@ class QuestionsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def correct_keys_from_params
+    correct_keys = []
+
+    if params[:type] == "MultipleChoice"
+      correct_keys << params[:optionsRadios]
+    elsif params[:type] == "MultipleSelect"
+
+      params[:quiz_question_choices].keys.each do |choice_key|
+        if params[:quiz_question_choices][choice_key].key?("correctindex")
+          correct_keys << choice_key
+        end
+      end
+    end
+
+    correct_keys
   end
 
   # PATCH/PUT /questions/1
