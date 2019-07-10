@@ -2,6 +2,16 @@
   <h1 class="display-3"> <%= @question.title %> </h1>
   <p>  (<%= @question.type %>) </p>
   <p class="lead"><%= @question.description %></p>
+
+  <p> Answers:</p>
+  <% @answers.each do |answer| %>
+    <%if answer.is_correct %>
+      <p class="text-primary"><%= answer.txt %></p>
+    <%else %>
+      <p class="text-secondary"><%= answer.txt %></p>
+    <% end %>
+  <% end %>
+
   <hr class="my-4">
   <p class="lead">Created by <%= @question.creator.full_name %></p>
 </div>

@@ -10,6 +10,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1
   def show
+    @answers = @question.answers.order("id")
   end
 
   # GET /questions/new
