@@ -15,10 +15,13 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   def new
     @question = Question.new
+    @answers = []
+    4.times{ @answers.append(Answer.new) }
   end
 
   # GET /questions/1/edit
   def edit
+    @answers = @question.answers.order("id")
   end
 
   # POST /questions
@@ -28,6 +31,14 @@ class QuestionsController < ApplicationController
     @question.creator_user_id = current_user.id
 
     if @question.save
+
+      correct_keys = params[:optionsRadios]
+
+      params[:quiz_question_choices].keys.each do |choice_key|
+        a = Answer.new(txt: params[:quiz_question_choices][choice_key][:txt], is_correct: (choice_key == correct_keys), question_id: @question.id)
+        a.save
+      end
+
       redirect_to @question, notice: 'Question was successfully created.'
     else
       render :new
@@ -37,6 +48,15 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   def update
     if @question.update(question_params)
+
+      correct_keys = params[:optionsRadios]
+
+      i = 1
+      @question.answers.each do |answer|
+        answer.update_attributes(is_correct: (i.to_s == correct_keys), txt: params[:quiz_question_choices][i.to_s][:txt])
+        i+=1
+      end
+
       redirect_to @question, notice: 'Question was successfully updated.'
     else
       render :edit
@@ -57,7 +77,12 @@ class QuestionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def question_params
-      params.require(:question).permit(:title, :description, :type)
+      if params[:commit].start_with?("Update")
+        question_type = params[:type].to_sym
+        params.require(question_type).permit(:title, :description, :type)
+      else
+        params.require(:question).permit(:title, :description, :type)
+      end
     end
 
     def set_type
