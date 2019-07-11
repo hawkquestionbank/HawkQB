@@ -12,12 +12,13 @@
   <tbody>
   <% @courses.each do |course| %>
     <tr class="table-primary">
-      <th scope="row"><%=button_to course.title, course, class: "btn btn-primary" %></th>
+      <th scope="row"><%=button_to course.title, course, method: :get, class: "btn btn-primary" %></th>
       <td> <%= time_ago_in_words(course.created_at) %> </td>
       <td> <%= time_ago_in_words(course.updated_at) %> </td>
       <td><%= button_to 'Edit', edit_course_path(course), class: "btn btn-primary", method: :get %></td>
       <td><%= button_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
-      <td><%= button_to 'Manage Registrations', courses_manage_registrations_path(:id => course.id), method: :get, class: "btn btn-primary" %> </td>
+      <td><%= link_to 'Manage Registrations', courses_manage_registrations_path(:id => course.id), method: :get, class: "text-white" %> </td>
+      <td><%= link_to 'Manage Micro-credentials', micro_credentials_manage_course_micro_credentials_path(:course_id => course.id), method: :get, class: "text-white" %> </td>
     </tr>
   <% end %>
 
