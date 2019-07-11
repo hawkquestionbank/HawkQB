@@ -34,7 +34,18 @@ class QuestionsController < ApplicationController
     if @question.save
 
       correct_keys = correct_keys_from_params
+      # multipleselect/new:
+      # {"utf8"=>"✓", "authenticity_token"=>"S+V98di1oBuB2tGZHCUis6U+6YRL3p4aPRIY1S7TEthu6mRYqNK+dY5osuAsClhwKegifc44lDexlCno1uITjw==",
+      # "question"=>{"title"=>"MS4", "description"=>"MC4"}, "type"=>"MultipleSelect",
+      # "quiz_question_choices"=>{"1"=>{"correctindex"=>"1", "txt"=>"C1"}, "2"=>{"correctindex"=>"2", "txt"=>"C2"}, "3"=>{"txt"=>"C3"}, "4"=>{"txt"=>"C4"}},
+      # "commit"=>"Create Question"}
 
+      # multiplechoice/new
+      # {"utf8"=>"✓", "authenticity_token"=>"SuNCm0Q2SWHc8RSDWbKohhVG2KdyYns8azOmaDUxut9v7FsyNFFXD9NDd/ppndJFmZATXveEcRHntZdVzQC7iA==",
+      # "question"=>{"title"=>"MC33", "description"=>"MC33 DESC"}, "type"=>"MultipleChoice",
+      # "quiz_question_choices"=>{"1"=>{"txt"=>"X1"}, "2"=>{"txt"=>"X2"}, "3"=>{"txt"=>"X3"}, "4"=>{"txt"=>"X4"}},
+      # "optionsRadios"=>"2",
+      # "commit"=>"Create Question"}
       params[:quiz_question_choices].keys.each do |choice_key|
         a = Answer.new(txt: params[:quiz_question_choices][choice_key][:txt], is_correct: (correct_keys.include? choice_key), question_id: @question.id)
         a.save
@@ -49,9 +60,9 @@ class QuestionsController < ApplicationController
   def correct_keys_from_params
     correct_keys = []
 
-    if params[:type] == "MultipleChoice"
+    if params[:type].camelize == "MultipleChoice"
       correct_keys << params[:optionsRadios]
-    elsif params[:type] == "MultipleSelect"
+    elsif params[:type].camelize == "MultipleSelect"
 
       params[:quiz_question_choices].keys.each do |choice_key|
         if params[:quiz_question_choices][choice_key].key?("correctindex")
@@ -67,11 +78,24 @@ class QuestionsController < ApplicationController
   def update
     if @question.update(question_params)
 
-      correct_keys = params[:optionsRadios]
+      correct_keys = correct_keys_from_params
+
+      # multipleselect/edit
+      # {"utf8"=>"✓", "authenticity_token"=>"En1mK0MQHO6eTSxh1Cge6JrbNOmCW4h8ENObI46zgakPJpx/VX7MpT/SV1a4e22o0nx/btO4qajONyllqftDmA==",
+      # "multiple_select"=>{"title"=>"MS4", "description"=>"MC4"}, "type"=>"multiple_select",
+      # "quiz_question_choices"=>{"1"=>{"correctindex"=>"1", "txt"=>"C1"}, "2"=>{"correctindex"=>"2", "txt"=>"C2"}, "3"=>{"correctindex"=>"3", "txt"=>"C3"}, "4"=>{"txt"=>"C4"}},
+      # "commit"=>"Update Multiple select", "id"=>"37"}
+      #
+      # multiplechoince/edit
+      #  {"utf8"=>"✓", "authenticity_token"=>"9RcRxZiNhn2j1hlAnaBmIG5nkDZZCCOO6TvBwDNz/jyqm+fQFw3YnMgcSQunPmBgVidQmlKQ/Ca03MtkdJeiJA==",
+      # "multiple_choice"=>{"title"=>"MC33", "description"=>"MC33 DESC"}, "type"=>"multiple_choice",
+      # "quiz_question_choices"=>{"1"=>{"txt"=>"X1"}, "2"=>{"txt"=>"X2"}, "3"=>{"txt"=>"X3"}, "4"=>{"txt"=>"X4"}},
+      # "optionsRadios"=>"3",
+      # "commit"=>"Update Multiple choice", "id"=>"38"}
 
       i = 1
       @question.answers.each do |answer|
-        answer.update_attributes(is_correct: (i.to_s == correct_keys), txt: params[:quiz_question_choices][i.to_s][:txt])
+        answer.update_attributes(is_correct: (correct_keys.include? i.to_s), txt: params[:quiz_question_choices][i.to_s][:txt])
         i+=1
       end
 
