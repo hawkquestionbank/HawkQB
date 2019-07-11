@@ -17,7 +17,7 @@
       <td> <%= time_ago_in_words(course.updated_at) %> </td>
       <td><%= button_to 'Edit', edit_course_path(course), class: "btn btn-primary", method: :get %></td>
       <td><%= button_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
-      <td><%= link_to 'Manage Registrations', courses_manage_registrations_path(:id => course.id), method: :get %> </td>
+      <td><%= button_to 'Manage Registrations', courses_manage_registrations_path(:id => course.id), method: :get, class: "btn btn-primary" %> </td>
     </tr>
   <% end %>
 
