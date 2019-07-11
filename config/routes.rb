@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :multiple_selects, controller: 'questions', type: 'multiple_select'
   resources :fill_in_the_blanks, controller: 'questions', type: 'fill_in_the_blank'
 
+  get 'micro_credentials/manage_course_micro_credentials'
   get 'micro_credentials/study'
   resources :micro_credentials
 

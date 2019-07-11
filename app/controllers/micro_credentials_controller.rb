@@ -54,6 +54,13 @@ class MicroCredentialsController < ApplicationController
     @micro_credentials = @course.micro_credentials
   end
 
+  def manage_course_micro_credentials
+    @course = Course.find(params[:course_id])
+    @used_micro_credentials = @course.micro_credentials
+    # find the micro_credentials which 1) created by current user and 2) not used in any course
+    @available_micro_credentials = MicroCredential.available_micro_credentials(current_user)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_micro_credential
