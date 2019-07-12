@@ -69,7 +69,6 @@ class MicroCredentialsController < ApplicationController
 
     # handle the case when the user does not select any check box, then there is no such key "id" in params
     if not params.key?(:id)
-      print("+++++++")
       redirect_to micro_credentials_manage_course_micro_credentials_path(:course_id =>course.id), alert: 'Please make sure you have selected at least one micro-credential.'
     else
 
