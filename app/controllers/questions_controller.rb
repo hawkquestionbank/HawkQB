@@ -57,13 +57,16 @@ class QuestionsController < ApplicationController
     end
   end
 
+  # find the correct choice's index from params,
+  # return a list of indexes of correct choices as keys in params["quiz_question_choices"]
   def correct_keys_from_params
     correct_keys = []
 
     if params[:type].camelize == "MultipleChoice"
+      # take the only choice
       correct_keys << params[:optionsRadios]
     elsif params[:type].camelize == "MultipleSelect"
-
+      # visit all the hashes in params["quiz_question_choices"] and keep the correct ones
       params[:quiz_question_choices].keys.each do |choice_key|
         if params[:quiz_question_choices][choice_key].key?("correctindex")
           correct_keys << choice_key
