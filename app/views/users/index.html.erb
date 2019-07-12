@@ -1,8 +1,16 @@
-<table>
+<h1>Manage Users</h1>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">User Name</th>
+    <th scope="col">Actions</th>
+  </thead>
+
   <% @users.each do |user| %>
-    <tr>
-      <td> <%= user.full_name %></td>
-      <td> <%= link_to 'edit', edit_user_path(user)%>
+    <tr class="table-active">
+      <th scope="row"> <%= user.full_name %></td>
+      <td> <%= link_to 'Edit', edit_user_path(user)%>
     </tr>
   <% end %>
 </table>
