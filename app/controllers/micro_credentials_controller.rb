@@ -66,15 +66,22 @@ class MicroCredentialsController < ApplicationController
     # sample params:
     # {"utf8"=>"✓", "authenticity_token"=>"iebFeDd3BW66cbQlJIU21DtTvyt4HOvZMAcjgBLwxp5gsQ9IUrWjG1kB18QY4J5isaVWgPLlBTJsst7YGeyhcA==",
     # "course_id"=>"2", "id"=>["5", "7", "8"], "commit"=>"Associate", "method"=>"post"}
-    micro_credentials_to_associate = MicroCredential.find(params[:id])
 
-    micro_credentials_to_associate.each do |micro_credential|
-      if MicroCredentialMap.where(micro_credential_id: micro_credential.id, course_id: course.id).empty?
-        MicroCredentialMap.new(micro_credential_id: micro_credential.id, course_id: course.id).save
+    # handle the case when the user does not select any check box, then there is no such key "id" in params
+    if not params.key?(:id)
+      print("+++++++")
+      redirect_to micro_credentials_manage_course_micro_credentials_path(:course_id =>course.id), alert: 'Please make sure you have selected at least one micro-credential.'
+    else
+
+      micro_credentials_to_associate = MicroCredential.find(params[:id])
+      micro_credentials_to_associate.each do |micro_credential|
+        if MicroCredentialMap.where(micro_credential_id: micro_credential.id, course_id: course.id).empty?
+          MicroCredentialMap.new(micro_credential_id: micro_credential.id, course_id: course.id).save
+        end
       end
-    end
 
-    redirect_to micro_credentials_manage_course_micro_credentials_path(:course_id =>course.id), notice: 'New micro-credential(s) associated to this course.'
+      redirect_to micro_credentials_manage_course_micro_credentials_path(:course_id =>course.id), notice: 'New micro-credential(s) associated to this course.'
+    end
   end
 
   def dissociate_from_course
