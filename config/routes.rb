@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :fill_in_the_blanks, controller: 'questions', type: 'fill_in_the_blank'
 
   get 'micro_credentials/manage_course_micro_credentials'
+  post 'micro_credentials/associate_to_course'
   get 'micro_credentials/study'
   resources :micro_credentials
 

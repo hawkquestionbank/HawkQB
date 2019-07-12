@@ -1,6 +1,5 @@
 class MicroCredentialsController < ApplicationController
   before_action :set_micro_credential, only: [:show, :edit, :update, :destroy]
-  access all: [:index, :show, :new, :edit, :create, :update, :destroy], user: :all
   access all: [:show], instructor: {except: [:study, :index]}, admin: :all, student: [:show, :study]
 
   # GET /micro_credentials
@@ -59,6 +58,11 @@ class MicroCredentialsController < ApplicationController
     @used_micro_credentials = @course.micro_credentials
     # find the micro_credentials which 1) created by current user and 2) not used in any course
     @available_micro_credentials = MicroCredential.available_micro_credentials(current_user)
+  end
+
+  def associate_to_course
+    @course = Course.find(params[:course_id])
+    redirect_to micro_credentials_manage_course_micro_credentials_path(:course_id =>@course.id), notice: 'New micro-credential(s) associated to course.'
   end
 
   private
