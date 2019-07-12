@@ -61,8 +61,26 @@ class MicroCredentialsController < ApplicationController
   end
 
   def associate_to_course
-    @course = Course.find(params[:course_id])
-    redirect_to micro_credentials_manage_course_micro_credentials_path(:course_id =>@course.id), notice: 'New micro-credential(s) associated to course.'
+    course = Course.find(params[:course_id])
+
+    # sample params:
+    # {"utf8"=>"✓", "authenticity_token"=>"iebFeDd3BW66cbQlJIU21DtTvyt4HOvZMAcjgBLwxp5gsQ9IUrWjG1kB18QY4J5isaVWgPLlBTJsst7YGeyhcA==",
+    # "course_id"=>"2", "id"=>["5", "7", "8"], "commit"=>"Associate", "method"=>"post"}
+    micro_credentials_to_associate = MicroCredential.find(params[:id])
+
+    micro_credentials_to_associate.each do |micro_credential|
+      if MicroCredentialMap.where(micro_credential_id: micro_credential.id, course_id: course.id).empty?
+        MicroCredentialMap.new(micro_credential_id: micro_credential.id, course_id: course.id).save
+      end
+    end
+
+    redirect_to micro_credentials_manage_course_micro_credentials_path(:course_id =>course.id), notice: 'New micro-credential(s) associated to this course.'
+  end
+
+  def dissociate_from_course
+    MicroCredentialMap.where(micro_credential_id: params[:id], course_id: params[:course_id]).delete_all
+
+    redirect_to micro_credentials_manage_course_micro_credentials_path(:course_id => params[:course_id]), notice: 'Micro-credential(s) dissociated from this course.'
   end
 
   private
