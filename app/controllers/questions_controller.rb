@@ -7,9 +7,13 @@ class QuestionsController < ApplicationController
   def index
     if current_user.role == "admin"
       @questions = type_class.all
+      questions_accessible = Question.all
     else
       @questions = type_class.where(creator_user_id: current_user.id)
+      questions_accessible = Question.where(creator_user_id: current_user.id)
     end
+    @quetion_type_counts = questions_accessible.group(:type).count
+
   end
 
   # GET /questions/1
