@@ -1,11 +1,15 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :set_type
-  access all: [:show], instructor: {except: [:index]}, admin: :all
+  access all: [:show], instructor: :all, admin: :all
 
   # GET /questions
   def index
-    @questions = type_class.all
+    if current_user.role == "admin"
+      @questions = type_class.all
+    else
+      @questions = type_class.where(creator_user_id: current_user.id)
+    end
   end
 
   # GET /questions/1
