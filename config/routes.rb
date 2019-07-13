@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  post 'questions/new_multiple_choice'
+  get 'questions/manage_questions'
   resources :questions
   resources :multiple_choices, controller: 'questions', type: 'multiple_choice'
   resources :multiple_selects, controller: 'questions', type: 'multiple_select'

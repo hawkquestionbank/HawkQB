@@ -108,6 +108,11 @@ class QuestionsController < ApplicationController
     end
   end
 
+  # manage question associated to a course
+  def manage_questions
+    @course = Course.find(params[:course_id])
+  end
+
   # DELETE /questions/1
   def destroy
     @question.destroy
