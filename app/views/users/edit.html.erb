@@ -27,7 +27,7 @@
   <% if current_user.role == :admin%> 
     <div class="form-group">
       <label for="role">Role</label>
-      <%= f.select :role, options_for_select(['admin', 'instructor', 'student'], :selected => @user.role) %>
+      <%= f.select :role, options_for_select(['admin', 'instructor', 'student'], :selected => @user.role),{},{class: "form-control"} %>
     </div>
   <% end %>
   <div class="form-actions">
