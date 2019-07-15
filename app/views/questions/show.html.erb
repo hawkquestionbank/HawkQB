@@ -3,6 +3,8 @@
   <p>  (<%= @question.type %>) </p>
   <p class="lead"><%= @question.description %></p>
 
+  <p>Assigned to course:   <%= @course.nil? ? "None" : @course.title %></p>
+
   <p> Answers:</p>
   <% @answers.each do |answer| %>
     <%if answer.is_correct %>

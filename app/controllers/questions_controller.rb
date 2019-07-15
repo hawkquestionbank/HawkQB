@@ -19,6 +19,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   def show
     @answers = @question.answers.order("id")
+    @course = @question.course
   end
 
   # GET /questions/new
@@ -26,16 +27,22 @@ class QuestionsController < ApplicationController
     @question = Question.new
     @answers = []
     4.times{ @answers.append(Answer.new) }
+
+    @course_options = current_user.own_courses.map{ |c| [ c.title, c.id ] }
+    @course_options.unshift(["---", nil])
   end
 
   # GET /questions/1/edit
   def edit
     @answers = @question.answers.order("id")
+    @course_options = current_user.own_courses.map{ |c| [ c.title, c.id ] }
+    @course_options.unshift(["---", nil])
   end
 
   # POST /questions
   def create
     @question = Question.new(question_params)
+    @question.course_id = params["course_id"]
     @question.type = params[:type]
     @question.creator_user_id = current_user.id
 
@@ -87,6 +94,7 @@ class QuestionsController < ApplicationController
 
   # PATCH/PUT /questions/1
   def update
+    @question.course_id = params["course_id"]
     if @question.update(question_params)
 
       correct_keys = correct_keys_from_params
