@@ -8,5 +8,5 @@ class Course < ActiveRecord::Base
   has_many :course_registrations
   has_many :users, through: :course_registrations
   has_many :micro_credentials, through: :micro_credential_maps
-
+  has_many :questions
 end

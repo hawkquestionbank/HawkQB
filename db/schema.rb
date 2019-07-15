@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_15_201433) do
+ActiveRecord::Schema.define(version: 2019_07_15_201434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 2019_07_15_201433) do
   create_table "micro_credentials", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.string "identifier", limit: 20
     t.integer "creator_user_id"
+    t.string "identifier", limit: 20
   end
 
   create_table "question_micro_credentials", force: :cascade do |t|
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2019_07_15_201433) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "creator_user_id"
+    t.integer "course_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -87,7 +88,9 @@ ActiveRecord::Schema.define(version: 2019_07_15_201433) do
 
   add_foreign_key "answers", "questions"
   add_foreign_key "courses", "users", column: "creator_user_id"
+  add_foreign_key "micro_credentials", "users", column: "creator_user_id"
   add_foreign_key "question_micro_credentials", "micro_credentials"
   add_foreign_key "question_micro_credentials", "questions"
+  add_foreign_key "questions", "courses"
   add_foreign_key "questions", "users", column: "creator_user_id"
 end

@@ -3,6 +3,7 @@ class Question < ActiveRecord::Base
   has_many :answers
   has_many :question_micro_credentials
   has_many :micro_credentials, through: :question_micro_credentials
+  belongs_to :course, optional: true
   # We will need a way to know which question types
   # will subclass the Question model
   def self.types
