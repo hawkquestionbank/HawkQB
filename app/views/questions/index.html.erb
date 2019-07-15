@@ -27,19 +27,19 @@
   <div class="col-lg-4">
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= link_to "See all multiple choice questions", sti_question_path("multiple_choice") %>
+        <%= link_to "See All (Multiple Choice Questions)", sti_question_path("multiple_choice") %>
         <span class="badge badge-primary badge-pill"><%= @quetion_type_counts["MultipleChoice"] %></span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= link_to "See all multiple select questions", sti_question_path("multiple_select") %>
+        <%= link_to "See All (Multiple Select Questions)", sti_question_path("multiple_select") %>
         <span class="badge badge-primary badge-pill"><%= @quetion_type_counts["MultipleSelect"] %></span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= link_to "See all fill in the blank questions", sti_question_path("fill_in_the_blank") %>
+        <%= link_to "See All (Fill In The Blank Questions)", sti_question_path("fill_in_the_blank") %>
         <span class="badge badge-primary badge-pill"><%= @quetion_type_counts["FillInTheBlank"] %></span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= link_to 'See all question', sti_question_path %>
+        <%= link_to 'See All Questions', sti_question_path %>
       </li>
     </ul>
   </div>
@@ -47,11 +47,11 @@
   <div class="col-lg-4">
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= link_to 'New Mutilple Choice Question', sti_question_path("multiple_choice", nil, :new), method: :get %>
+        <%= link_to 'New Multiple Choice Question', sti_question_path("multiple_choice", nil, :new), method: :get %>
 
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= link_to 'New Mutilple Select Question', sti_question_path("multiple_select", nil, :new), method: :get %>
+        <%= link_to 'New Multiple Select Question', sti_question_path("multiple_select", nil, :new), method: :get %>
 
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center">
