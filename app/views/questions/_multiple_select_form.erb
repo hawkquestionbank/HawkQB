@@ -13,6 +13,11 @@
 
     <%= hidden_field_tag(:type , "MultipleSelect") %>
 
+    <div class="form-group">
+      <%= f.label :course, class: "col-sm-2 col-form-label"  %>
+      <%= select_tag(:course_id, options_for_select(@course_options,:selected =>@question.course_id), :class=>"form-control") %>
+    </div>
+
     <%= f.label :answers, class: "col-sm-2 col-form-label" %>
 
     <% i=1 %>
@@ -21,8 +26,8 @@
       <% for answer in @answers %>
         <tr>
           <td>
-            <%= check_box_tag("quiz_question_choices[#{i}][correctindex]", "#{i}", answer.is_correct, :class=>"form-check-input", :type=>"checkbox")%>
-            <%= text_field_tag "quiz_question_choices[#{i}][txt]", answer.txt, :size=>40 %>
+            <%= check_box_tag("quiz_question_choices[#{i}][correctindex]", "#{i}", answer.is_correct, :class=>"form-check-input" , :type=>"checkbox")%>
+            <%= text_area_tag "quiz_question_choices[#{i}][txt]", answer.txt %>
           </td>
         </tr>
         <% i+=1 %>
