@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions
   def index
-    if current_user.role == "admin"
+    if current_user.role == :admin
       @questions = type_class.all
       questions_accessible = Question.all
     else
