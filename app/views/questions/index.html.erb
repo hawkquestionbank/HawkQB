@@ -15,7 +15,7 @@
   <% @questions.each do |question| %>
     <% course = question.course %>
     <tr class="table-active">
-      <td><%= link_to question.title, sti_question_path(question.type, question) %></td>
+      <td><%= link_to question.title, sti_question_path(question.type, question) %> <%=type_as_badge(question) %></td>
       <td><%= course.nil? ? "None" : course.title %> </td>
       <td><%= question.creator.full_name %></td>
       <td><%= link_to 'Edit', sti_question_path(question.type, question, :edit) %></td>
