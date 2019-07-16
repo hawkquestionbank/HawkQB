@@ -15,4 +15,12 @@ module QuestionsHelper
   def form_name(type)
     type == "Question"? "form" : type.underscore+"_form"
   end
+
+  def type_as_badge(question)
+    if question.type == "MultipleChoice"
+      '<span class="badge badge-primary">Multiple choice</span>'.html_safe
+    elsif question.type == "MultipleSelect"
+      '<span class="badge badge-info">Multiple select</span>'.html_safe
+    end
+  end
 end
