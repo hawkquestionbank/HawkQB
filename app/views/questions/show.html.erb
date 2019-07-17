@@ -1,9 +1,7 @@
 <div class="jumbotron">
   <h1 class="display-4"> <%= @question.title %> </h1>
-  <p>  (<%= @question.type %>) </p>
+  <p>  (<%= @question.type %>) Assigned to course:   <%= @course.nil? ? "None" : @course.title %></p>
   <p class="lead"><%= @question.description %></p>
-
-  <p>Assigned to course:   <%= @course.nil? ? "None" : @course.title %></p>
 
   <p> Answers:</p>
   <% @answers.each do |answer| %>
