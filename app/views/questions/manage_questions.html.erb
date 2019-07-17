@@ -13,7 +13,13 @@
   <% @questions.each do |question| %>
     <% course = question.course %>
     <tr class="table-active">
-      <td><%= link_to question.title, sti_question_path(question.type, question) %> <%=type_as_badge(question) %></td>
+      <td>
+        <%= link_to question.title, sti_question_path(question.type, question) %> <%=type_as_badge(question) %>
+        <% for micro_credential in question.micro_credentials%>
+          <br>
+          <span class="badge badge-light"><%= micro_credential.identifier %>: <%= micro_credential.title %></span>
+        <%end %>
+      </td>
       <td><%= course.nil? ? "None" : course.title %> </td>
       <td><%= question.creator.full_name %></td>
       <td><%= link_to 'Edit', sti_question_path(question.type, question, :edit) %></td>
