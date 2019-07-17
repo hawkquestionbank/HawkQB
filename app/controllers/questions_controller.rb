@@ -39,6 +39,7 @@ class QuestionsController < ApplicationController
     @course_options = current_user.own_courses.map{ |c| [ c.title, c.id ] }
     @course_options.unshift(["---", nil])
     @course = @question.course
+    @question_micro_credential_ids = @question.micro_credentials.map(&:id)
   end
 
   # POST /questions
