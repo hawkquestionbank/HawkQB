@@ -1,3 +1,7 @@
 <h1>Editing Question</h1>
 
 <%= render form_name(@type), question: @question %>
+
+<% if not @type == "Question"%>
+  <%= render 'associate_micro_credentials' %>
+<% end%>

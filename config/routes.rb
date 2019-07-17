@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   get 'questions/manage_questions'
+  post 'questions/associate_micro_credentials'
+  post 'questions/dissociate_micro_credentials'
   resources :questions
   resources :multiple_choices, controller: 'questions', type: 'multiple_choice'
   resources :multiple_selects, controller: 'questions', type: 'multiple_select'

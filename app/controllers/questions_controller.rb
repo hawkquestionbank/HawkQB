@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :associate_micro_credentials, :dissociate_micro_credentials]
   before_action :set_type
   access all: [:show], instructor: :all, admin: :all
 
@@ -37,6 +37,7 @@ class QuestionsController < ApplicationController
     @answers = @question.answers.order("id")
     @course_options = current_user.own_courses.map{ |c| [ c.title, c.id ] }
     @course_options.unshift(["---", nil])
+    @course = @question.course
   end
 
   # POST /questions
@@ -134,6 +135,33 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     redirect_to questions_url, notice: 'Question was successfully destroyed.'
+  end
+
+  def associate_micro_credentials
+    # sample prarams
+    # {"utf8"=>"✓", "authenticity_token"=>"AaUIQ3xGVSe78NOc5xjHZy/HXn6JJCMu0nO2JdUUBFCO+ZWq47XoU6Y77pxOH8LIY2XBcPPeXVUFqnVGAvgocg==",
+    # "id"=>"46", "micro_credential_id"=>["7", "8"], "commit"=>"Associate", "method"=>"post"}
+    course = @question.course
+
+    if not params.key?(:micro_credential_id)
+      redirect_to micro_credentials_manage_course_micro_credentials_path(:course_id =>course.id), alert: 'Please make sure you have selected at least one micro-credential.'
+    else
+
+      micro_credentials_to_associate = MicroCredential.find(params[:micro_credential_id])
+      micro_credentials_to_associate.each do |micro_credential|
+        if QuestionMicroCredential.where(micro_credential_id: micro_credential.id, question_id: @question.id).empty?
+          QuestionMicroCredential.new(micro_credential_id: micro_credential.id, question_id: @question.id).save
+        end
+      end
+
+      redirect_to questions_manage_questions_path(course_id: course.id), notice: 'New micro-credential(s) associated to this question.'
+    end
+  end
+
+  def dissociate_micro_credentials
+    course = @question.course
+    QuestionMicroCredential.where(micro_credential_id: params[:micro_credential_id], question_id: params[:id]).delete_all
+    redirect_to questions_manage_questions_path(course_id: course.id), notice: 'Micro-credential(s) dissociated from this course.'
   end
 
   private
