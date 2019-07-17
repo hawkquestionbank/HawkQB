@@ -15,6 +15,14 @@
   <% end %>
 
   <hr class="my-4">
+
+  <% if not @micro_credentials_required.empty?%>
+    <p class="lead">Micro credentials: </p>
+    <% @micro_credentials_required.each do |micro_credential|%>
+      <span class="badge badge-dark"><%= micro_credential.identifier %>: <%= micro_credential.title %></span>
+      <br>
+    <% end %>
+  <%end %>
   <p class="lead">Created by <%= @question.creator.full_name %></p>
 </div>
 

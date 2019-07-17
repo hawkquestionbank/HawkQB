@@ -20,6 +20,7 @@ class QuestionsController < ApplicationController
   def show
     @answers = @question.answers.order("id")
     @course = @question.course
+    @micro_credentials_required =  @question.micro_credentials
   end
 
   # GET /questions/new
