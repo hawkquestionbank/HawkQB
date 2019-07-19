@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_18_004029) do
+ActiveRecord::Schema.define(version: 2019_07_19_005122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_07_18_004029) do
     t.integer "creator_user_id"
     t.string "token"
     t.integer "max_attempts", default: 2
+    t.datetime "close_to_attempts"
   end
 
   create_table "micro_credential_maps", force: :cascade do |t|
