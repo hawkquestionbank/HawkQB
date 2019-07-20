@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   has_many :own_multiple_choices, class_name: 'MultipleChoice', foreign_key: 'creator_user_id', dependent: :destroy
   has_many :own_multiple_selects, class_name: 'MultipleSelect', foreign_key: 'creator_user_id', dependent: :destroy
   has_many :own_fill_in_the_blanks, class_name: 'FillInTheBlank', foreign_key: 'creator_user_id', dependent: :destroy
-
+  has_many :attempts
 
   def full_name
     combined_name = (first_name.nil? ? "":first_name) + ' ' + (last_name.nil? ? "":last_name)
