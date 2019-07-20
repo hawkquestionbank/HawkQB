@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_21_061220) do
+ActiveRecord::Schema.define(version: 2019_07_21_061223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,19 @@ ActiveRecord::Schema.define(version: 2019_07_21_061220) do
     t.text "txt"
     t.boolean "is_correct", default: false
     t.integer "question_id"
+  end
+
+  create_table "attempts", force: :cascade do |t|
+    t.text "txt"
+    t.boolean "finished"
+    t.bigint "questions_id"
+    t.bigint "users_id"
+    t.bigint "answers_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answers_id"], name: "index_attempts_on_answers_id"
+    t.index ["questions_id"], name: "index_attempts_on_questions_id"
+    t.index ["users_id"], name: "index_attempts_on_users_id"
   end
 
   create_table "course_registrations", force: :cascade do |t|
@@ -90,6 +103,12 @@ ActiveRecord::Schema.define(version: 2019_07_21_061220) do
   end
 
   add_foreign_key "answers", "questions"
+  add_foreign_key "attemps", "answers", column: "answers_id"
+  add_foreign_key "attemps", "questions", column: "questions_id"
+  add_foreign_key "attemps", "users", column: "users_id"
+  add_foreign_key "attempts", "answers", column: "answers_id"
+  add_foreign_key "attempts", "questions", column: "questions_id"
+  add_foreign_key "attempts", "users", column: "users_id"
   add_foreign_key "courses", "users", column: "creator_user_id"
   add_foreign_key "micro_credentials", "users", column: "creator_user_id"
   add_foreign_key "question_micro_credentials", "micro_credentials"
