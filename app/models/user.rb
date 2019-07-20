@@ -37,4 +37,18 @@ class User < ActiveRecord::Base
   def owns target_object
     self.id == target_object.creator_user_id
   end
+
+  def finished_question question, max_attempts, close_to_attempts
+    # find the attempts of the current user on the question
+    # return true if one of the conditions is true
+    # 1) when max_attempts is a integer: the number of **finished** attempts equals to or higher than max_attempts
+    # 2) when close_to_attempts is earlier than current time
+  end
+
+  def can_see_correct_answer question, can_view_answers_after
+    # return true if one of the conditions is true
+    # 1) if can_view_answers_after is not nil, current time is later than the can_view_answers_after time
+    #  (mostly when a course is used for an exam)
+    # 2) if can_view_answers_after is nil, when finished_question returns true
+  end
 end
