@@ -15,11 +15,19 @@
     <%= f.text_field :token, class: "form-control" %>
     <small class="form-text text-muted">Your students can use this token to self-register your course. You do not need to specify a course token, leave this field empty if you are not using it.</small>
 
-    <%= f.label :close_to_attempts, class: "col-sm-2 col-form-label"  %>
+    <%= f.label :close_to_attempts_at, class: "col-sm-2 col-form-label"  %>
     <%= f.text_field :close_to_attempts, class: "form-control", id: "datetimepicker" %>
 
     <script>
         jQuery('#datetimepicker').datetimepicker();
+    </script>
+
+    <%= f.label :answers_available_after, class: "col-sm-2 col-form-label"  %>
+    <%= f.text_field :can_view_answers_after, class: "form-control", id: "datetimepicker1" %>
+    <small class="form-text text-muted">Specify a time when the system will show students their grades on all the questions, e.g., if this is used for a test.</small>
+    <small class="form-text text-muted">Leave this field as empty if you want students to see correct answers right after they have finished a question.</small>
+    <script>
+        jQuery('#datetimepicker1').datetimepicker();
     </script>
 
     <div class="form-group">
