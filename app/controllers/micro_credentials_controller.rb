@@ -93,10 +93,14 @@ class MicroCredentialsController < ApplicationController
     micro_credential_copy.title = @micro_credential.title + " cloned"
     if micro_credential_copy.save
       flash[:notice] = 'Item was successfully cloned.'
-      redirect_to(admin_dashboard_list_path)
     else
       flash[:notice] = 'ERROR: Item can\'t be cloned.'
+    end
+
+    if current_user.role == :admin 
       redirect_to(admin_dashboard_list_path)
+    else 
+      redirect_to(instructor_dashboard_list_path)
     end
   end 
 
