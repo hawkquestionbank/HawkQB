@@ -1,5 +1,5 @@
 class MicroCredentialsController < ApplicationController
-  before_action :set_micro_credential, only: [:show, :edit, :update, :destroy]
+  before_action :set_micro_credential, only: [:show, :edit, :update, :destroy, :clone]
   access all: [:show], instructor: {except: [:study, :index]}, admin: :all, student: [:show, :study]
 
   # GET /micro_credentials
@@ -88,6 +88,17 @@ class MicroCredentialsController < ApplicationController
 
     redirect_to micro_credentials_manage_course_micro_credentials_path(:course_id => params[:course_id]), notice: 'Micro-credential(s) dissociated from this course.'
   end
+  def clone
+    micro_credential_copy = @micro_credential.dup()
+    micro_credential_copy.title = @micro_credential.title + " cloned"
+    if micro_credential_copy.save
+      flash[:notice] = 'Item was successfully cloned.'
+      redirect_to(admin_dashboard_list_path)
+    else
+      flash[:notice] = 'ERROR: Item can\'t be cloned.'
+      redirect_to(admin_dashboard_list_path)
+    end
+  end 
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -98,5 +109,5 @@ class MicroCredentialsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def micro_credential_params
       params.require(:micro_credential).permit(:title, :identifier, :creator_user_id, :description)
-    end
+    end  
 end

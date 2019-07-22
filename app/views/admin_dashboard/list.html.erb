@@ -50,6 +50,7 @@
       <th scope="row"><%=micro_credential.identifier %>: <%=link_to micro_credential.title, micro_credential %></th>
       <td> <%= micro_credential.creator.full_name %> </td>
       <td><%= link_to 'Edit', edit_micro_credential_path(micro_credential) %></td>
+      <td><%= link_to "Clone", micro_credentials_clone_path(:id => micro_credential.id), method: :post %></td>
       <td><%= link_to 'Destroy', micro_credential, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>

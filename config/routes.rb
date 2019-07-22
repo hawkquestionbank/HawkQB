@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'micro_credentials/manage_course_micro_credentials'
   post 'micro_credentials/associate_to_course'
   post 'micro_credentials/dissociate_from_course'
+  post 'micro_credentials/clone'
   get 'micro_credentials/study'
   resources :micro_credentials
 
