@@ -1,5 +1,17 @@
 <h1> <%=@display_category.capitalize %> questions in: <%=@course.title %> </h1>
 
+<% closed = @course.closed_to_attempts%>
+
+<% if not @course.close_to_attempts.nil? %>
+  <h4><li>All questions close <%= distance_of_time_in_words(DateTime.now, @course.close_to_attempts)%></li></h4>
+<% end %>
+
+<% if not @course.max_attempts.nil?%>
+  <h4><li>You can try each question up to <%= @course.max_attempts%> time(s).</li></h4>
+<% else %>
+  <h4><li>The number of attempts on each question is <em>unlimited</em>.</li></h4>
+<% end %>
+
 <table class="table table-hover table-striped">
   <thead>
   <tr>

@@ -9,4 +9,15 @@ class Course < ActiveRecord::Base
   has_many :users, through: :course_registrations
   has_many :micro_credentials, through: :micro_credential_maps
   has_many :questions
+
+  def closed_to_attempts
+    # return true if the current course is closed to new attempts from student (students can no longer
+    # submit their answers to the system).
+    # otherwise return false
+    if self.close_to_attempts.nil?
+      false
+    else
+      DateTime.now < self.close_to_attempts
+    end
+  end
 end
