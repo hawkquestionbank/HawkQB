@@ -3,7 +3,11 @@
 <% closed = @course.closed_to_attempts%>
 
 <% if not @course.close_to_attempts.nil? %>
-  <h5><li>All questions close <%= distance_of_time_in_words(DateTime.now, @course.close_to_attempts)%></li></h5>
+  <% if DateTime.now <= @course.close_to_attempts%>
+    <h5><li>All questions close in <%= distance_of_time_in_words(DateTime.now, @course.close_to_attempts)%></li></h5>
+  <% else %>
+    <h5><li>All questions close  <%= time_ago_in_words(@course.close_to_attempts)%> ago</li></h5>
+  <% end %>
 <% end %>
 
 <% if not @course.max_attempts.nil?%>
@@ -26,8 +30,16 @@
       <tr class="table-active">
         <th scope="row"><%= question.title %>></th>
         <td><%= question.type %></td>
-        <td><%= time_ago_in_words(question.updated_at) %></td>
-        <td><%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %> </td>
+        <td><%= time_ago_in_words(question.updated_at) %> ago</td>
+        <td>
+          <% if closed %>
+            <span style="font-size: 3em; color: Gray;">
+              <%= fa_icon('window-close') %>
+            </span>
+          <% else %>
+            <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

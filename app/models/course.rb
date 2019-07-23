@@ -17,7 +17,7 @@ class Course < ActiveRecord::Base
     if self.close_to_attempts.nil?
       false
     else
-      DateTime.now < self.close_to_attempts
+      DateTime.now > self.close_to_attempts
     end
   end
 end
