@@ -32,7 +32,7 @@
 
     <div class="form-group">
       <label for="max_attempts">Maximum attempts allowed</label>
-      <%= f.select :max_attempts, options_for_select([1, 2, 3, 4, 5, 6], :selected => @course.max_attempts),{},{class: "form-control"} %>
+      <%= f.select :max_attempts, options_for_select({"unlimited"=>nil, 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6}, :selected => @course.max_attempts),{},{class: "form-control"} %>
     </div>
 
     <%= f.button :submit, class: "btn btn-primary"%>
