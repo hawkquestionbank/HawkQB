@@ -21,7 +21,7 @@
         </div>
       <% end %>
     </div>
-
+    <%= hidden_field_tag('course_id' , @course.id) %>
     <%= hidden_field_tag('attempt[user_id]' , current_user.id) %>
     <%= hidden_field_tag('attempt[question_id]', @question.id) %>
     <%= hidden_field_tag('attempt[created_at]' , @attempt.created_at) %>
