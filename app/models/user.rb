@@ -42,7 +42,9 @@ class User < ActiveRecord::Base
     # find the attempts of the current user on the question
     # return true if one of the conditions is true
     # 1) when max_attempts is a integer: the number of **finished** attempts equals to or higher than max_attempts
-    # 2) when close_to_attempts is earlier than current time
+    # 2) when max_attempts is nil
+    # we do not check the close_to_attempts time, if a question is past due but a student has not tried it, it is still
+    # unfinished.
   end
 
   def can_see_correct_answer question, can_view_answers_after
