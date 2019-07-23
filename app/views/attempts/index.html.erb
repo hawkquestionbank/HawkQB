@@ -3,13 +3,13 @@
 <% closed = @course.closed_to_attempts%>
 
 <% if not @course.close_to_attempts.nil? %>
-  <h4><li>All questions close <%= distance_of_time_in_words(DateTime.now, @course.close_to_attempts)%></li></h4>
+  <h5><li>All questions close <%= distance_of_time_in_words(DateTime.now, @course.close_to_attempts)%></li></h5>
 <% end %>
 
 <% if not @course.max_attempts.nil?%>
-  <h4><li>You can try each question up to <%= @course.max_attempts%> time(s).</li></h4>
+  <h5><li>You can try each question up to <%= @course.max_attempts%> time(s).</li></h5>
 <% else %>
-  <h4><li>The number of attempts on each question is <em>unlimited</em>.</li></h4>
+  <h5><li>The number of attempts on each question is <em>unlimited</em>.</li></h5>
 <% end %>
 
 <table class="table table-hover table-striped">
