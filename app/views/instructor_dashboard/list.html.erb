@@ -49,6 +49,7 @@
     <tr class="table-primary">
       <th scope="row"><%=micro_credential.identifier %>: <%=button_to micro_credential.title, micro_credential , method: :get, class: "btn btn-primary"%></th>
       <td><%= button_to 'Edit', edit_micro_credential_path(micro_credential), method: :get, class: "btn btn-primary" %></td>
+      <td><%= button_to "Clone", micro_credentials_clone_path(:id => micro_credential.id), method: :post, class: "btn btn-primary" %></td>
       <td><%= button_to 'Destroy', micro_credential, method: :delete, data: { confirm: 'Are you sure?' }, method: :get, class: "btn btn-primary" %></td>
     </tr>
   <% end %>
