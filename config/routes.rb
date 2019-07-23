@@ -39,6 +39,5 @@ Rails.application.routes.draw do
   get 'student_dashboard/list'
   get 'instructor_dashboard/list'
 
-  get 'attempts/index'
- 
+  resources :attempts
 end

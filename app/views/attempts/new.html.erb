@@ -1,0 +1,31 @@
+<%= simple_form_for(@attempt) do |f| %>
+
+  <%= f.error_notification %>
+
+  <%= render 'layouts/detailed_error_messages', f: f%>
+
+  <div class="form-inputs">
+
+    <div class="jumbotron">
+      <h1 class="display-4"> <%= @question.title %> </h1>
+      <p>  (<%= @question.type %>) Assigned to course:   <%= @course.nil? ? "None" : @course.title %></p>
+      <p class="lead"><%= @question.description %></p>
+
+      <p> Answers (multiple choince question, select one):</p>
+      <% @answers.each do |answer| %>
+        <div class="form-check">
+          <label class="form-check-label">
+            <%= radio_button_tag("quiz_question_choices[selected_index]", "#{answer.id}", :class=>"form-check-input", :name=>"optionsRadios")%>
+            <%= answer.txt %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+
+    <%= hidden_field_tag('attempt[user_id]' , current_user.id) %>
+    <%= hidden_field_tag('attempt[question_id]', @question.id) %>
+    <%= hidden_field_tag('attempt[created_at]' , @attempt.created_at) %>
+
+    <%= f.button :submit, class: "btn btn-primary"%>
+  </div>
+<% end %>
