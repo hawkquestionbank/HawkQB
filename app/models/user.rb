@@ -53,4 +53,21 @@ class User < ActiveRecord::Base
     #  (mostly when a course is used for an exam)
     # 2) if can_view_answers_after is nil, when finished_question returns true
   end
+
+  def question_taking_record course
+    attempts = Attempt.where(:user_id=>self.id).joins(:question).where("questions.course_id=?", course.id ).order("id desc")
+    personal_question_taking_record = {}
+    course.questions.each do |question|
+      attempts_on_this_question = attempts.where("question_id=?", question.id)
+      if attempts_on_this_question.nil? or attempts_on_this_question.empty?
+      else
+        latest_attempt = attempts_on_this_question.first
+        personal_question_taking_record[question.id] = {}
+        personal_question_taking_record[question.id][:score] = latest_attempt.score
+        personal_question_taking_record[question.id][:num_attempts] = attempts_on_this_question.size
+      end
+    end
+
+    personal_question_taking_record
+  end
 end
