@@ -55,6 +55,11 @@ class User < ActiveRecord::Base
   end
 
   def question_taking_record course
+    # produce a hash of the current user's question taking history on the given course:
+    # Format:
+    # {question_id => {:score => most recent score, :num_attempts => total attempts on this questions}}
+    # Sample:
+    # {48=>{:score=>100, :num_attempts=>1}, 46=>{:score=>0, :num_attempts=>5}}
     attempts = Attempt.where(:user_id=>self.id).joins(:question).where("questions.course_id=?", course.id ).order("id desc")
     personal_question_taking_record = {}
     course.questions.each do |question|

@@ -1,5 +1,7 @@
 <h1> <%=@display_category.capitalize %> questions in: <%=@course.title %> </h1>
 
+<%= personal_attempt_history = current_user.question_taking_record @course%>
+
 <% closed = @course.closed_to_attempts%>
 
 <% if not @course.close_to_attempts.nil? %>
@@ -36,6 +38,21 @@
             <span style="font-size: 3em; color: Gray;">
               <%= fa_icon('window-close') %>
             </span>
+          <% elsif personal_attempt_history.key?(question.id)%>
+            <% if personal_attempt_history[question.id][:score] == 1%>
+              <span style="font-size: 3em; color: Green;">
+                <%= fa_icon('check-square') %>
+              </span>
+            <% else %>
+              <span style="font-size: 3em; color: Tomato;">
+                <%= fa_icon('times-circle') %>
+              </span>
+
+            <% end %>
+
+            <% if personal_attempt_history[question.id][:num_attempts] < @course.max_attempts%>
+              <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
+            <% end %>
           <% else %>
             <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
           <% end %>
@@ -49,13 +66,13 @@
 <h5> Icon legend:</h5>
 
 Latest attemp is correct:
-<span style="font-size: 3em; color: Tomato;">
-  <%= fa_icon('times-circle') %>
+<span style="font-size: 3em; color: Green;">
+  <%= fa_icon('check-square') %>
 </span>
 
 Latest attempt is wrong:
-<span style="font-size: 3em; color: Green;">
-  <%= fa_icon('check-square') %>
+<span style="font-size: 3em; color: Tomato;">
+  <%= fa_icon('times-circle') %>
 </span>
 
 No more submussion allowed:
