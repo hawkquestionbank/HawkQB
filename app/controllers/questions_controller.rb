@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy, :associate_micro_credentials, :dissociate_micro_credentials]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :associate_micro_credentials, :dissociate_micro_credentials, :clone]
   before_action :set_type
   access all: [:show], instructor: :all, admin: :all
 
@@ -164,6 +164,28 @@ class QuestionsController < ApplicationController
     course = @question.course
     QuestionMicroCredential.where(micro_credential_id: params[:micro_credential_id], question_id: params[:id]).delete_all
     redirect_to questions_manage_questions_path(course_id: course.id), notice: 'Micro-credential(s) dissociated from this course.'
+  end
+
+  def clone
+    question_copy = @question.dup()
+    question_copy.title = @question.title + " cloned"
+    question_copy.course_id = nil
+    if question_copy.save
+      flash[:notice] = 'Item was successfully cloned.'
+    else
+      flash[:notice] = 'ERROR: Item can\'t be cloned.'
+    end
+    answers = @question.answers
+    answers.each do |answer|
+      answer_copy = answer.dup()
+      answer_copy.question_id = question_copy.id
+      answer_copy.save
+    end
+    if current_user.role == :admin 
+      redirect_to(admin_dashboard_list_path)
+    else 
+      redirect_to(instructor_dashboard_list_path)
+    end
   end
 
   private

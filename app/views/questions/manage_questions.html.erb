@@ -23,6 +23,7 @@
       <td><%= course.nil? ? "None" : course.title %> </td>
       <td><%= question.creator.full_name %></td>
       <td><%= link_to 'Edit', sti_question_path(question.type, question, :edit) %></td>
+      <td><%= link_to 'Clone', questions_clone_path(:id => question.id), method: :post %></td>
       <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
