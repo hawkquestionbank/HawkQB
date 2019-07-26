@@ -41,6 +41,7 @@
               <%= fa_icon('window-close') %>
             </span>
           <% elsif personal_attempt_history.key?(question.id)%>
+            <%-# if the course is not closed, check the question taking history and display icons %>
             <% if personal_attempt_history[question.id][:score] == 1%>
               <span style="font-size: 3em; color: Green;">
                 <%= fa_icon('check-square') %>
@@ -49,13 +50,19 @@
               <span style="font-size: 3em; color: Tomato;">
                 <%= fa_icon('times-circle') %>
               </span>
-
             <% end %>
 
-            <% if personal_attempt_history[question.id][:num_attempts] < @course.max_attempts%>
+            <%-# check if there is more attempts allowed %>
+            <% if not @course.max_attempts.nil? and personal_attempt_history[question.id][:num_attempts] < @course.max_attempts%>
               <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
             <% end %>
+            <%-# if there is no max_attempts: always allow more attempts %>
+            <% if @course.max_attempts.nil?%>
+              <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
+            <% end %>
+
           <% else %>
+            <%-# if this question is not closed, and the user has not tried this question before: allow attempts %>
             <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
           <% end %>
         </td>
