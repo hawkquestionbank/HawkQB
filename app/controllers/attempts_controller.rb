@@ -24,6 +24,8 @@ class AttemptsController < ApplicationController
 
     if not @question.valid_attempt?(@attempt)
       redirect_to ({controller: "attempts", action: "new", course_id: params[:course_id], question_id: @question.id}), alert:'ERROR: invalid answer, please make sure you have answered the question.'
+    elsif not @question.grade @attempt
+      redirect_to ({controller: "attempts", action: "new", course_id: params[:course_id], question_id: @question.id}), alert:'ERROR: invalid answer, please make sure you have answered the question.'
     elsif @attempt.save
       #@question.grade(@attempt)
       redirect_to attempts_path(:category => "all", :course_id =>params[:course_id] ), notice: 'Your answer was successfully submitted.'
