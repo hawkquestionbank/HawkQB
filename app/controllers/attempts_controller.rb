@@ -6,7 +6,15 @@ class AttemptsController < ApplicationController
   def index
     @display_category = params[:category]
     @course = Course.find(params[:course_id])
-    @questions = @course.questions
+    if @display_category == "open"
+      @questions = current_user.my_open_questions @course
+    elsif @display_category == "closed"
+      @questions = current_user.my_closed_questions @course
+    else
+      @questions = @course.questions
+    end
+
+
   end
 
   def new

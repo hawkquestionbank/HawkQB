@@ -53,8 +53,7 @@ class User < ActiveRecord::Base
       course.questions.each do |question|
         if not course.close_to_attempts.nil? and DateTime.now > course.close_to_attempts
           open_closed_questions_counter[course.id][:closed] += 1
-        elsif not course.max_attempts.nil?
-          attempts.where("question_id=?", question.id).size >= course.max_attempts
+        elsif not course.max_attempts.nil? and attempts.where("question_id=?", question.id).size >= course.max_attempts
           open_closed_questions_counter[course.id][:closed] += 1
         else
           open_closed_questions_counter[course.id][:open] += 1
@@ -91,5 +90,35 @@ class User < ActiveRecord::Base
     end
 
     personal_question_taking_record
+  end
+
+  def my_open_questions course
+    open_questions_in_course = []
+    attempts = Attempt.where(:user_id=>self.id).joins(:question).where("questions.course_id=?", course.id ).order("id desc")
+    course.questions.each do |question|
+      if not course.close_to_attempts.nil? and DateTime.now > course.close_to_attempts
+        next
+      elsif not course.max_attempts.nil? and attempts.where("question_id=?", question.id).size >= course.max_attempts
+        next
+      else
+        open_questions_in_course << question
+      end
+    end
+    open_questions_in_course
+  end
+
+  def my_closed_questions course
+    closed_questions_in_course = []
+    attempts = Attempt.where(:user_id=>self.id).joins(:question).where("questions.course_id=?", course.id ).order("id desc")
+    course.questions.each do |question|
+      if not course.close_to_attempts.nil? and DateTime.now > course.close_to_attempts
+        closed_questions_in_course << question
+      elsif not course.max_attempts.nil? and attempts.where("question_id=?", question.id).size >= course.max_attempts
+        closed_questions_in_course << question
+      else
+        next
+      end
+    end
+    closed_questions_in_course
   end
 end
