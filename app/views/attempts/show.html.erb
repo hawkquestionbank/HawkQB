@@ -15,7 +15,13 @@
 
   <p> Your answer: </p>
 
-  <%= @question.type.constantize.answer_as_html %>
+  <%= @question.type.constantize.answer_as_html(@attempt).html_safe %>
+
+  <% if @attempt.score == 1 %>
+    <%= render "correct_icon", :can_see_correct_answers => false, :question_id => @question.id %>
+  <% else %>
+    <%= render "wrong_icon", :can_see_correct_answers => false, :question_id => @question.id%>
+  <% end %>
 
   <hr class="my-4">
 

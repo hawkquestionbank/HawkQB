@@ -43,7 +43,7 @@
             <% if personal_attempt_history[question.id][:score] == 1%>
               <%= render "correct_icon", :can_see_correct_answers => can_see_correct_answers, :question_id => question.id %>
             <% else %>
-              <%= render "wrong_icon", :can_see_correct_answedrs => can_see_correct_answers, :question_id => question.id%>
+              <%= render "wrong_icon", :can_see_correct_answers => can_see_correct_answers, :question_id => question.id%>
             <% end %>
 
           <% else %>
