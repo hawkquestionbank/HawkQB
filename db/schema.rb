@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_24_050839) do
+ActiveRecord::Schema.define(version: 2019_07_28_015544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_07_24_050839) do
     t.integer "max_attempts", default: 2
     t.datetime "close_to_attempts"
     t.datetime "can_view_answers_after"
+    t.boolean "is_an_exam", default: false
   end
 
   create_table "micro_credential_maps", force: :cascade do |t|
