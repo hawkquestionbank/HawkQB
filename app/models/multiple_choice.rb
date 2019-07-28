@@ -29,4 +29,11 @@ class MultipleChoice < Question
     end
 
   end
+
+  def self.answer_as_html attempt
+    assembled_html = ""
+    assembled_html += Answer.find(attempt.answer_id).txt.html_safe
+
+    assembled_html
+  end
 end
