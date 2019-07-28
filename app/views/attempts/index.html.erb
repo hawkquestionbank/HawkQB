@@ -41,9 +41,9 @@
           <% if personal_attempt_history.key?(question.id)%>
             <%-# if the course is not closed, check the question taking history and display icons %>
             <% if personal_attempt_history[question.id][:score] == 1%>
-              <%= render "correct_icon", :can_see_correct_answers => can_see_correct_answers %>
+              <%= render "correct_icon", :can_see_correct_answers => can_see_correct_answers, :question_id => question.id %>
             <% else %>
-              <%= render "wrong_icon", :can_see_correct_answedrs => can_see_correct_answers%>
+              <%= render "wrong_icon", :can_see_correct_answedrs => can_see_correct_answers, :question_id => question.id%>
             <% end %>
 
           <% else %>
