@@ -37,19 +37,13 @@
         <td><%= personal_attempt_history[question.id] ? personal_attempt_history[question.id][:num_attempts]:0 %></td>
         <td>
           <% if closed %>
-            <span style="font-size: 3em; color: Gray;">
-              <%= fa_icon('window-close') %>
-            </span>
+            <%= render "closed_icon" %>
           <% elsif personal_attempt_history.key?(question.id)%>
             <%-# if the course is not closed, check the question taking history and display icons %>
             <% if personal_attempt_history[question.id][:score] == 1%>
-              <span style="font-size: 3em; color: Green;">
-                <%= fa_icon('check-square') %>
-              </span>
+              <%= render "correct_icon" %>
             <% else %>
-              <span style="font-size: 3em; color: Tomato;">
-                <%= fa_icon('times-circle') %>
-              </span>
+              <%= render "wrong_icon" %>
             <% end %>
 
             <%-# check if there is more attempts allowed %>
