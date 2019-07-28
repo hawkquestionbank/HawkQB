@@ -3,6 +3,7 @@
 <%= personal_attempt_history = current_user.question_taking_record @course%>
 
 <% closed = @course.closed_to_attempts%>
+<% can_see_correct_answers = @course.can_see_correct_answers? %>
 
 <% if not @course.close_to_attempts.nil? %>
   <% if DateTime.now <= @course.close_to_attempts%>
@@ -36,28 +37,32 @@
         <td><%= time_ago_in_words(question.updated_at) %> ago</td>
         <td><%= personal_attempt_history[question.id] ? personal_attempt_history[question.id][:num_attempts]:0 %></td>
         <td>
-          <% if closed %>
-            <%= render "closed_icon" %>
-          <% elsif personal_attempt_history.key?(question.id)%>
+
+          <% if personal_attempt_history.key?(question.id)%>
             <%-# if the course is not closed, check the question taking history and display icons %>
             <% if personal_attempt_history[question.id][:score] == 1%>
-              <%= render "correct_icon" %>
+              <%= render "correct_icon", :can_see_correct_answers => can_see_correct_answers %>
             <% else %>
-              <%= render "wrong_icon" %>
+              <%= render "wrong_icon", :can_see_correct_answedrs => can_see_correct_answers%>
             <% end %>
 
+          <% else %>
+            <%-# if this question is not closed, and the user has not tried this question before: allow attempts %>
+            <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
+          <% end %>
+
+          <% if closed %>
+            <%= render "closed_icon" %>
+          <% else %>
+
             <%-# check if there is more attempts allowed %>
-            <% if not @course.max_attempts.nil? and personal_attempt_history[question.id][:num_attempts] < @course.max_attempts%>
+            <% if not @course.max_attempts.nil? and personal_attempt_history.key?(question.id) and personal_attempt_history[question.id][:num_attempts] < @course.max_attempts%>
               <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
             <% end %>
             <%-# if there is no max_attempts: always allow more attempts %>
             <% if @course.max_attempts.nil?%>
               <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
             <% end %>
-
-          <% else %>
-            <%-# if this question is not closed, and the user has not tried this question before: allow attempts %>
-            <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
           <% end %>
         </td>
       </tr>
