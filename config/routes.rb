@@ -41,5 +41,6 @@ Rails.application.routes.draw do
   get 'student_dashboard/list'
   get 'instructor_dashboard/list'
 
+  get "attempts/redirect_to_attempts_show"
   resources :attempts
 end

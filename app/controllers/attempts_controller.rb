@@ -14,7 +14,6 @@ class AttemptsController < ApplicationController
       @questions = @course.questions
     end
 
-
   end
 
   def new
@@ -41,6 +40,21 @@ class AttemptsController < ApplicationController
       render :new
     end
 
+  end
+
+  def show
+    @attempt = Attempt.find(params[:id])
+    @question = @attempt.question
+    @course = @question.course
+    @answers = @question.answers
+    @micro_credentials_required = @question.micro_credentials
+  end
+
+  def redirect_to_attempts_show
+    user_id = params[:user_id]
+    question_id = params[:question_id]
+    latest_attempt = Attempt.where(:user_id=>user_id, :question_id=>question_id).order("id desc").first
+    redirect_to attempt_path latest_attempt
   end
 
   private
