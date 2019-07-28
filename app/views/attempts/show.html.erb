@@ -1,0 +1,31 @@
+<div class="jumbotron">
+  <h1 class="display-4"> <%= @question.title %> </h1>
+  <p>  (<%= @question.type %>) Assigned to course:   <%= @course.nil? ? "None" : @course.title %></p>
+  <p class="lead"><%= @question.description %></p>
+
+  <% show_correct_answer = @course.can_see_correct_answers? %>
+  <p> Answers:</p>
+  <% @answers.each do |answer| %>
+    <%if show_correct_answer and answer.is_correct %>
+      <li><p class="text-primary"><%= answer.txt %></p></li>
+    <%else %>
+      <li><p><%= answer.txt %></p></li>
+    <% end %>
+  <% end %>
+
+  <p> Your answer: </p>
+
+  <%= @question.type.constantize.answer_as_html %>
+
+  <hr class="my-4">
+
+  <% if not @micro_credentials_required.empty?%>
+    <p class="lead">Micro credentials: </p>
+    <% @micro_credentials_required.each do |micro_credential|%>
+      <span class="badge badge-dark"><%= micro_credential.identifier %>: <%= micro_credential.title %></span>
+      <br>
+    <% end %>
+  <%end %>
+
+</div>
+
