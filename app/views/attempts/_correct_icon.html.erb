@@ -1,11 +1,7 @@
 <% if can_see_correct_answers %>
   <%= link_to attempts_redirect_to_attempts_show_path(:user_id=>current_user.id, :question_id =>question_id) do %>
-    <span style="font-size: 3em; color: Green;">
-      <%= fa_icon("check-square")%>
-    </span>
+    <span style="font-size: 3em; color: Green;"><i class="fa fa-check-square"></i></span>
   <% end %>
 <% else %>
-  <span style="font-size: 3em; color: Green;">
-    <%= fa_icon("check-square")%>
-  </span>
+  <span style="font-size: 3em; color: Green;"><i class="fa fa-check-square"></i></span>
 <% end %>

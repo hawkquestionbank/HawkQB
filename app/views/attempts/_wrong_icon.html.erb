@@ -1,11 +1,7 @@
 <% if can_see_correct_answers %>
   <%= link_to attempts_redirect_to_attempts_show_path(:user_id=>current_user.id, :question_id =>question_id) do %>
-    <span style="font-size: 3em; color: Tomato;">
-      <%= fa_icon("times-circle") %>
-    </span>
+    <span style="font-size: 3em; color: Tomato;"><i class="fa fa-times-circle"></i></span>
   <% end %>
 <% else %>
-  <span style="font-size: 3em; color: Tomato;">
-    <%= fa_icon("times-circle") %>
-  </span>
+  <span style="font-size: 3em; color: Tomato;"><i class="fa fa-times-circle"></i></span>
 <% end %>
