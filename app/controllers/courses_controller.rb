@@ -30,7 +30,7 @@ class CoursesController < ApplicationController
     if @course.save
 
       if @course.is_an_exam and (@course.close_to_attempts.nil? or @course.can_view_answers_after.nil?)
-        redirect_to redirect_to_dashboard, alert: 'Course was successfully created, but you should specify close time and answers open time.'
+        redirect_to edit_course_path(@course), alert: 'Course was successfully created, but you should specify close time and answers open time.'
       else
         redirect_to redirect_to_dashboard, notice: 'Course was successfully created.'
       end
@@ -45,7 +45,7 @@ class CoursesController < ApplicationController
     if @course.update(course_params)
 
       if @course.is_an_exam and (@course.close_to_attempts.nil? or @course.can_view_answers_after.nil?)
-        redirect_to @course, alert: 'Course was successfully updated, but you should specify close time and answers open time.'
+        redirect_to edit_course_path(@course), alert: 'Course was successfully updated, but you should specify close time and answers open time.'
       else
         redirect_to @course, notice: 'Course was successfully updated.'
       end
