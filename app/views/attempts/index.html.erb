@@ -45,10 +45,6 @@
             <% else %>
               <%= render "wrong_icon", :can_see_correct_answers => can_see_correct_answers, :question_id => question.id%>
             <% end %>
-
-          <% else %>
-            <%-# if this question is not closed, and the user has not tried this question before: allow attempts %>
-            <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
           <% end %>
 
           <% if closed %>
@@ -61,6 +57,10 @@
             <% end %>
             <%-# if there is no max_attempts: always allow more attempts %>
             <% if @course.max_attempts.nil?%>
+              <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
+            <% end %>
+            <% if not personal_attempt_history.key?(question.id) %>
+              <%-# if this question is not closed, and the user has not tried this question before: allow attempts %>
               <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
             <% end %>
           <% end %>
