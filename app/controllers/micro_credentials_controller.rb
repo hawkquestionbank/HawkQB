@@ -45,7 +45,12 @@ class MicroCredentialsController < ApplicationController
   # DELETE /micro_credentials/1
   def destroy
     @micro_credential.destroy
-    redirect_to micro_credentials_url, notice: 'Micro credential was successfully destroyed.'
+    if current_user.role == :admin 
+      redirect_to(admin_dashboard_list_path)
+    else 
+      redirect_to(instructor_dashboard_list_path)
+    end
+    flash[:notice] = 'Micro credential was successfully destroyed.'
   end
 
   def study
@@ -91,6 +96,8 @@ class MicroCredentialsController < ApplicationController
   def clone
     micro_credential_copy = @micro_credential.dup()
     micro_credential_copy.title = @micro_credential.title + " cloned"
+    micro_credential_copy.creator_user_id = current_user.id
+
     if micro_credential_copy.save
       flash[:notice] = 'Item was successfully cloned.'
     else
