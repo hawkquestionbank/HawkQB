@@ -25,6 +25,7 @@
       <td> <%= course.creator.full_name %> </td>
       <td><%= link_to 'Edit', edit_course_path(course) %></td>
       <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Manage Registrations', courses_manage_registrations_path(:id => course.id), method: :get %> </td>
     </tr>
   <% end %>
 
