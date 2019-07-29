@@ -135,6 +135,9 @@ class QuestionsController < ApplicationController
 
   # DELETE /questions/1
   def destroy
+    @question.answers.each do |answer|
+      answer.destroy
+    end
     @question.destroy
     redirect_to questions_url, notice: 'Question was successfully destroyed.'
   end
