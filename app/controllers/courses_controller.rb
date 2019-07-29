@@ -28,7 +28,13 @@ class CoursesController < ApplicationController
     @course.creator_user_id = current_user.id
 
     if @course.save
-      redirect_to redirect_to_dashboard, notice: 'Course was successfully created.'
+
+      if @course.is_an_exam and (@course.close_to_attempts.nil? or @course.can_view_answers_after.nil?)
+        redirect_to redirect_to_dashboard, alert: 'Course was successfully created, but you should specify close time and answers open time.'
+      else
+        redirect_to redirect_to_dashboard, notice: 'Course was successfully created.'
+      end
+
     else
       render :new
     end
@@ -37,7 +43,13 @@ class CoursesController < ApplicationController
   # PATCH/PUT /courses/1
   def update
     if @course.update(course_params)
-      redirect_to @course, notice: 'Course was successfully updated.'
+
+      if @course.is_an_exam and (@course.close_to_attempts.nil? or @course.can_view_answers_after.nil?)
+        redirect_to @course, alert: 'Course was successfully updated, but you should specify close time and answers open time.'
+      else
+        redirect_to @course, notice: 'Course was successfully updated.'
+      end
+
     else
       render :edit
     end
