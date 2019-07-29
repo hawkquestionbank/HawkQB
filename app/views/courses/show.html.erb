@@ -4,6 +4,11 @@
 </p>
 
 <p>
+  <strong>This is an exam:</strong>
+  <%= @course.is_an_exam %>
+</p>
+
+<p>
   <strong>Description:</strong>
   <%= @course.description %>
 </p>
@@ -16,6 +21,21 @@
 <p>
   <strong>Token:</strong>
   <%= @course.token %>
+</p>
+
+<p>
+  <strong>Maximum attempts</strong>
+  <%= @course.max_attempts.nil? ? "unlimited" : @course.max_attempts %>
+</p>
+
+<p>s
+  <strong>Disallow submissions after: </strong>
+  <%= @course.close_to_attempts.nil? ? "always allow submissions" : @course.close_to_attempts %>
+</p>
+
+<p>
+  <strong>Display correct answers after: </strong>
+  <%= @course.can_view_answers_after.nil? ? "never" : @course.can_view_answers_after %>
 </p>
 
 <%= link_to 'Edit', edit_course_path(@course) %>
