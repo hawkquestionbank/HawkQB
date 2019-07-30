@@ -39,6 +39,9 @@ class QuestionsController < ApplicationController
     @course_options = current_user.own_courses.map{ |c| [ c.title, c.id ] }
     @course_options.unshift(["---", nil])
     @course = @question.course
+    # We only prepare the courses owned by current user, but if the admin is trying to edit a course owned by another
+    # instructor, the current course (owned by the instructor) will not be included in the @course_options
+    # The if branch will handle this case.
     if not @course_options.include?([@course.title, @course.id])
       @course_options << [@course.title, @course.id]
     end
