@@ -1,6 +1,6 @@
 <div class="jumbotron">
   <h1 class="display-3"><%= @micro_credential.identifier %>: <%= @micro_credential.title %></h1>
-  <p class="lead"><%= @micro_credential.description %></p>
+  <p class="lead"><%= simple_format(@micro_credential.description).html_safe %></p>
   <hr class="my-4">
   <p class="lead">Created by <%= @micro_credential.creator.full_name %></p>
 </div>
