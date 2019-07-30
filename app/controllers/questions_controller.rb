@@ -42,7 +42,7 @@ class QuestionsController < ApplicationController
     # We only prepare the courses owned by current user, but if the admin is trying to edit a course owned by another
     # instructor, the current course (owned by the instructor) will not be included in the @course_options
     # The if branch will handle this case.
-    if not @course_options.include?([@course.title, @course.id])
+    if not @course.nil? and not @course_options.include?([@course.title, @course.id])
       @course_options << [@course.title, @course.id]
     end
     @question_micro_credential_ids = @question.micro_credentials.map(&:id)
