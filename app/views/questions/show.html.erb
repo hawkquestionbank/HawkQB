@@ -1,14 +1,14 @@
 <div class="jumbotron">
   <h1 class="display-4"> <%= @question.title %> </h1>
   <p>  (<%= @question.type %>) Assigned to course:   <%= @course.nil? ? "None" : @course.title %></p>
-  <p class="lead"><%= @question.description %></p>
+  <div class="lead"><%= simple_format(@question.description) %></div>
 
   <p> Answers:</p>
   <% @answers.each do |answer| %>
     <%if answer.is_correct %>
-      <li><p class="text-primary"><%= answer.txt %></p></li>
+      <li><div class="text-primary"><%= simple_format h answer.txt %></div></li>
     <%else %>
-      <li><p class="text-secondary"><%= answer.txt %></p></li>
+      <li><div class="text-secondary"><%= simple_format h answer.txt %></div></li>
     <% end %>
   <% end %>
 
