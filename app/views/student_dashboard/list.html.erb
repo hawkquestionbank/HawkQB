@@ -16,7 +16,9 @@
       <p class="card-text">Place holder for course announcement</p>
 
       <%= link_to "Review core competencies", micro_credentials_study_path(:course_id => course.id), class: "card-link"%>
-      <a href="#" class="card-link">Review questions</a>
+      <% if not course.can_view_answers_after.nil? and DateTime.now>course.can_view_answers_after %>
+        <a href="#" class="card-link">Review questions</a>
+      <% end %>
     </div>
 
     <ul class="list-group">
