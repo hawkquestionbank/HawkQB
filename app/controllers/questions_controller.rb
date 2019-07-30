@@ -39,6 +39,9 @@ class QuestionsController < ApplicationController
     @course_options = current_user.own_courses.map{ |c| [ c.title, c.id ] }
     @course_options.unshift(["---", nil])
     @course = @question.course
+    if not @course_options.include?([@course.title, @course.id])
+      @course_options << [@course.title, @course.id]
+    end
     @question_micro_credential_ids = @question.micro_credentials.map(&:id)
   end
 
