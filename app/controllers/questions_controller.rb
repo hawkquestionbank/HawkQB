@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy, :associate_micro_credentials, :dissociate_micro_credentials, :clone]
   before_action :set_type
-  access all: [:show], instructor: :all, admin: :all
+  access instructor: :all, admin: :all
 
   # GET /questions
   def index
