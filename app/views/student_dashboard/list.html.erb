@@ -13,7 +13,20 @@
     <div class="card-body">
       <h4 class="card-title"><%= course.title %></h4>
       <h6 class="card-subtitle mb-2 text-muted">Instructor: <%= User.find(course.creator_user_id).full_name %></h6>
-      <p class="card-text">Place holder for course announcement</p>
+
+      <% if not course.close_to_attempts.nil? %>
+        <% if DateTime.now <= course.close_to_attempts%>
+          <li>All questions close in <%= distance_of_time_in_words(DateTime.now, course.close_to_attempts)%></li>
+        <% else %>
+          <li>All questions close  <%= time_ago_in_words(course.close_to_attempts)%> ago</li>
+        <% end %>
+      <% end %>
+
+      <% if not course.max_attempts.nil?%>
+        <li>You can try each question up to <%= course.max_attempts%> time(s).</li>
+      <% else %>
+        <li>The number of attempts on each question is <em>unlimited</em>.</li>
+      <% end %>
 
       <%= link_to "Review core competencies", micro_credentials_study_path(:course_id => course.id), class: "card-link"%>
       <% if not course.can_view_answers_after.nil? and DateTime.now>course.can_view_answers_after %>

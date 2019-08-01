@@ -5,20 +5,6 @@
 <% closed = @course.closed_to_attempts%>
 <% can_see_correct_answers = @course.can_see_correct_answers? %>
 
-<% if not @course.close_to_attempts.nil? %>
-  <% if DateTime.now <= @course.close_to_attempts%>
-    <h5><li>All questions close in <%= distance_of_time_in_words(DateTime.now, @course.close_to_attempts)%></li></h5>
-  <% else %>
-    <h5><li>All questions close  <%= time_ago_in_words(@course.close_to_attempts)%> ago</li></h5>
-  <% end %>
-<% end %>
-
-<% if not @course.max_attempts.nil?%>
-  <h5><li>You can try each question up to <%= @course.max_attempts%> time(s).</li></h5>
-<% else %>
-  <h5><li>The number of attempts on each question is <em>unlimited</em>.</li></h5>
-<% end %>
-
 <table class="table table-hover table-striped">
   <thead>
   <tr>
