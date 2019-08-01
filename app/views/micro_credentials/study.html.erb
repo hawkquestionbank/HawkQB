@@ -15,21 +15,9 @@
         <th scope="row"> <%= micro_credential.identifier %></th>
         <td><%= micro_credential.title %></td>
 
-        <td><%= button_to "view", micro_credential, :method=>"get", :class => "btn btn-info" %></td>
+        <td><%= link_to "view", micro_credential, method: :get, class: "text-white" %></td>
       </tr>
     <% end %>
-
-    <tr class="table-active">
-      <th scope="row">Sample unstarted MC</th>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-
-    <tr class="table-secondary">
-      <th scope="row">Sample struggled MC</th>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
 
   </tbody>
 </table>
