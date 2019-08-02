@@ -24,6 +24,11 @@
 </p>
 
 <p>
+  <strong>Default number of choices:</strong>
+  <%= @course.default_number_of_choices %>
+</p>
+
+<p>
   <strong>Maximum attempts</strong>
   <%= @course.max_attempts.nil? ? "unlimited" : @course.max_attempts %>
 </p>

@@ -16,6 +16,11 @@
     <small class="form-text text-muted">Your students can use this token to self-register your course. You do not need to specify a course token, leave this field empty if you are not using it.</small>
 
     <div class="form-group">
+      <label for="max_attempts">Number of choices for multiple choice/select questions</label>
+      <%= f.select :default_number_of_choices, options_for_select({2=>2, 3=>3, 4=>4, 5=>5, 6=>6}, :selected => @course.default_number_of_choices),{},{class: "form-control"} %>
+    </div>
+
+    <div class="form-group">
       <fieldset>
         <%= f.label "this is an exam", class: "col-sm-2 col-form-label"  %>
         <%= f.check_box :is_an_exam %>

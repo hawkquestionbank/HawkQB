@@ -155,7 +155,7 @@ class CoursesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def course_params
-      params.require(:course).permit(:title, :description, :token, :max_attempts, :close_to_attempts, :can_view_answers_after,:is_an_exam)
+      params.require(:course).permit(:title, :description, :token, :max_attempts, :close_to_attempts, :can_view_answers_after,:is_an_exam, :default_number_of_choices)
     end
 
     def redirect_to_dashboard
