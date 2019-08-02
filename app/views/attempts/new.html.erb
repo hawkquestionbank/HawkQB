@@ -16,7 +16,7 @@
         <div class="form-check">
           <label class="form-check-label">
             <%= radio_button_tag("quiz_question_choices[selected_index]", "#{answer.id}", :class=>"form-check-input", :name=>"optionsRadios")%>
-            <%= answer.txt %>
+            <%= simple_format h answer.txt %>
           </label>
         </div>
       <% end %>
