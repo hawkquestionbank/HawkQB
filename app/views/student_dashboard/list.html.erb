@@ -22,6 +22,14 @@
         <% end %>
       <% end %>
 
+      <% if not course.can_view_answers_after.nil? %>
+        <% if DateTime.now <= course.can_view_answers_after%>
+          <li>Correct answers will be available in <%= distance_of_time_in_words(DateTime.now, course.can_view_answers_after)%></li>
+        <% else %>
+          <li>All correct answers were available <%= time_ago_in_words(course.can_view_answers_after)%> ago</li>
+        <% end %>
+      <% end %>
+
       <% if not course.max_attempts.nil?%>
         <li>You can try each question up to <%= course.max_attempts%> time(s).</li>
       <% else %>
