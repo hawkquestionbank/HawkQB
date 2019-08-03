@@ -36,10 +36,6 @@
         <span class="badge badge-primary badge-pill"><%= @quetion_type_counts["MultipleSelect"] %></span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= link_to "See All (Fill In The Blank Questions)", sti_question_path("fill_in_the_blank") %>
-        <span class="badge badge-primary badge-pill"><%= @quetion_type_counts["FillInTheBlank"] %></span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
         <%= link_to 'See All Questions', sti_question_path %>
       </li>
     </ul>
@@ -53,10 +49,6 @@
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center">
         <%= link_to 'New Multiple Select Question', sti_question_path("multiple_select", nil, :new), method: :get %>
-
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= link_to 'New Fill in the Blank Question', sti_question_path("fill_in_the_blank", nil, :new), method: :get %>
 
       </li>
     </ul>
