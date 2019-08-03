@@ -27,7 +27,13 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     @answers = []
-    4.times{ @answers.append(Answer.new) }
+    if params.key?(:course_id)
+      course = Course.find(params[:course_id])
+      course.default_number_of_choices.times{ @answers.append(Answer.new) }
+      @question.course_id = course.id
+    else
+      4.times{ @answers.append(Answer.new) }
+    end
 
     @course_options = current_user.own_courses.map{ |c| [ c.title, c.id ] }
     @course_options.unshift(["---", nil])
