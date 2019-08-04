@@ -1,0 +1,9 @@
+<p> Answers (multiple choince question, select one):</p>
+<% @answers.each do |answer| %>
+  <div class="form-check">
+    <label class="form-check-label">
+      <%= check_box_tag("quiz_question_choices[#{answer.id}][selected_index]", "#{answer.id}", false, :class=>"form-check-input", :type=>"checkbox")%>
+      <%= simple_format h answer.txt %>
+    </label>
+  </div>
+<% end %>

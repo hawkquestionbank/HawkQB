@@ -1,0 +1,9 @@
+<p> Answers (multiple choince question, select one):</p>
+<% @answers.each do |answer| %>
+  <div class="form-check">
+    <label class="form-check-label">
+      <%= radio_button_tag("quiz_question_choices[selected_index]", "#{answer.id}", :class=>"form-check-input", :name=>"optionsRadios")%>
+      <%= simple_format h answer.txt %>
+    </label>
+  </div>
+<% end %>
