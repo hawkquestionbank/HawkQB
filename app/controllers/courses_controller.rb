@@ -116,6 +116,12 @@ class CoursesController < ApplicationController
           error_message = 'Try to login again'
           raise error_message
         end
+
+        # check the length of token
+        if params["course"]["token"].length <=4
+          error_message = "The token you input is too short"
+          raise error_message
+        end
         
         # check whether there is a course with such token
         course = Course.find_by_token(params["course"]["token"])
