@@ -32,4 +32,12 @@ class MultipleSelect < Question
       true
     end
   end
+
+  def self.answer_as_html attempt
+    assembled_html = ""
+    attempt.answer_hash["answer_ids"].each do |answer_id|
+      assembled_html += "<li>" + Answer.find(answer_id).txt.html_safe + "</li>"
+    end
+    assembled_html
+  end
 end
