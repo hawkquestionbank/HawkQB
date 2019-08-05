@@ -14,8 +14,8 @@
     <% course = question.course %>
     <tr class="table-active">
       <td><%= link_to question.title, sti_question_path(question.type, question) %> <%=type_as_badge(question) %></td>
-      <td><%= course.nil? ? "None" : course.title %> </td>
       <td><%= question.creator.full_name %></td>
+      <td><%= course.nil? ? "None" : course.title %> </td>
       <td><%= link_to 'Edit', sti_question_path(question.type, question, :edit) %></td>
       <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
