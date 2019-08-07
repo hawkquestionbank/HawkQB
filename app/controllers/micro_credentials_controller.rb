@@ -44,6 +44,11 @@ class MicroCredentialsController < ApplicationController
 
   # DELETE /micro_credentials/1
   def destroy
+    # destroy micro credential - course associations if there is any
+    MicroCredentialMap.where(:micro_credential_id => @micro_credential.id).destroy_all
+    # destroy micro credential - question associations if there is any
+    QuestionMicroCredential.where(:micro_credential_id => @micro_credential.id).destroy_all
+
     @micro_credential.destroy
     if current_user.role == :admin 
       redirect_to(admin_dashboard_list_path)
