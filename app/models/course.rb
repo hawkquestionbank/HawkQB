@@ -21,6 +21,10 @@ class Course < ActiveRecord::Base
     end
   end
 
+  def in_exam_now?
+    self.is_an_exam and DateTime.now < self.close_to_attempts
+  end
+
   def can_see_correct_answers?
     # Determine whether to display
     # if this course is an **exam** (only), compare current time and can_view_answers_after and close_to_attempts, which ever is later

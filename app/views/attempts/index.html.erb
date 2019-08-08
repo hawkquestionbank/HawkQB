@@ -11,7 +11,7 @@
     <th scope="col">Question title</th>
     <th scope="col">Type</th>
     <th scope="col">Updated</th>
-    <th scope="col">Number of your attempts</th>
+    <th scope="col">Number of submitted attempts</th>
     <th scope="col">Action(s)</th>
   </tr>
   </thead>
@@ -23,33 +23,20 @@
         <td><%= time_ago_in_words(question.updated_at) %> ago</td>
         <td><%= personal_attempt_history[question.id] ? personal_attempt_history[question.id][:num_attempts]:0 %></td>
         <td>
-
-          <% if personal_attempt_history.key?(question.id)%>
-            <%-# if the course is not closed, check the question taking history and display icons %>
-            <% if personal_attempt_history[question.id][:score] == 1%>
-              <%= render "correct_icon", :can_see_correct_answers => can_see_correct_answers, :question_id => question.id %>
-            <% else %>
-              <%= render "wrong_icon", :can_see_correct_answers => can_see_correct_answers, :question_id => question.id%>
-            <% end %>
-          <% end %>
-
           <% if closed %>
             <%= render "closed_icon" %>
-          <% else %>
-
-            <%-# check if there is more attempts allowed %>
-            <% if not @course.max_attempts.nil? and personal_attempt_history.key?(question.id) and personal_attempt_history[question.id][:num_attempts] < @course.max_attempts%>
-              <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
-            <% end %>
-            <%-# if there is no max_attempts: always allow more attempts %>
-            <% if @course.max_attempts.nil?%>
-              <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
-            <% end %>
-            <% if not personal_attempt_history.key?(question.id) %>
-              <%-# if this question is not closed, and the user has not tried this question before: allow attempts %>
-              <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
-            <% end %>
           <% end %>
+
+          <% if show_correct_wrong_icon(personal_attempt_history, question)== :correct and can_see_correct_answers%>
+            <%= render "correct_icon", :can_see_correct_answers => can_see_correct_answers, :question_id => question.id %>
+          <% elsif show_correct_wrong_icon(personal_attempt_history, question)== :wrong and can_see_correct_answers%>
+            <%= render "wrong_icon", :can_see_correct_answers => can_see_correct_answers, :question_id => question.id%>
+          <% end %>
+
+          <% if show_take_link personal_attempt_history, question, closed, @course %>
+            <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
+          <% end %>
+
         </td>
       </tr>
     <% end %>
