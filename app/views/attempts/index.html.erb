@@ -33,6 +33,10 @@
             <%= render "wrong_icon", :can_see_correct_answers => can_see_correct_answers, :question_id => question.id%>
           <% end %>
 
+          <% if not can_see_correct_answers %>
+            score is hidden
+          <% end %>
+
           <% if show_take_link personal_attempt_history, question, closed, @course %>
             <%= link_to 'Take', new_attempt_path(:course_id=>@course.id, :question_id=>question.id) %>
           <% end %>
