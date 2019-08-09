@@ -7,9 +7,9 @@
   <p> Answers:</p>
   <% @answers.each do |answer| %>
     <%if show_correct_answer and answer.is_correct %>
-      <li><p class="text-primary"><%= simple_format h answer.txt %></p></li>
+      <li><div class="text-primary"><%= simple_format h answer.txt %></div></li>
     <%else %>
-      <li><p><%= answer.txt %></p></li>
+      <li><div><%= simple_format h answer.txt %></div></li>
     <% end %>
   <% end %>
 
