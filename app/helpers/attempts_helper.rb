@@ -2,7 +2,7 @@ module AttemptsHelper
   def show_take_link (personal_attempt_history, question, closed, course)
     if closed
       false
-    elsif course.in_exam_now? or (course.can_view_answers_after and DateTime.now<course.close_to_attempts)
+    elsif course.in_exam_now? or (course.close_to_attempts and DateTime.now<course.close_to_attempts)
       if not course.max_attempts.nil? and not personal_attempt_history.key?(question.id)
         # when the max_attempts is not nil, but the user has not taken this question -->true
         true
