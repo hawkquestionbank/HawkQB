@@ -1,6 +1,6 @@
 <br>
 <%= form_tag :controller => 'courses', :action => 'self_register_using_token', :method => 'post' do %>
-  <%= hidden_field_tag 'user_id', current_user.id, style: 'float:right' %>
+  <%= hidden_field_tag 'user_id', current_user.id %>
   Have a course token? Self-register here: <%= text_field(:course, :token, size:20)%>
   <input type='submit' value='Add' class="btn btn-sm btn-secondary"/>
 <% end %>
