@@ -1,6 +1,6 @@
 <h1> <%=@display_category.capitalize %> questions in: <%=@course.title %> </h1>
 
-<%= personal_attempt_history = current_user.question_taking_record @course%>
+<% personal_attempt_history = current_user.question_taking_record @course%>
 
 <% closed = @course.closed_to_attempts%>
 <% can_see_correct_answers = @course.can_see_correct_answers? %>
