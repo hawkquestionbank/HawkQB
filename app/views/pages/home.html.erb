@@ -2,15 +2,24 @@
 <html>
   <head>
     <title>HawkQB</title>
-    <h1>Where micro-credentials support learning!</h1>
+    <br><br><br>
+    <h1 style="text-align: center" >Welcome to HawkQB </h1>
+    <br><br><br>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+  <%= image_tag 'logos/seahawkSMALL.png', :class=> 'style_image'%>
 
   <body>
     <%= yield %>
   </body>
+  <br><br><br>
+  <% if (current_user) %>
+    <h1 style="text-align: center"> <%= current_user.full_name %></h1>
+  <%else%>
+    <h1 style=" text-align: center">New User</h1>
+  <% end %>
 </html>
