@@ -40,4 +40,12 @@ class Course < ActiveRecord::Base
       false
     end
   end
+
+  def hidden_from_students?
+    if self.hide_from_students_after.nil?
+      false
+    else
+      DateTime.now > self.hide_from_students_after
+    end
+  end
 end

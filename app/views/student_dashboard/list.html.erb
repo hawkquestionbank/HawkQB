@@ -10,6 +10,8 @@
 
 <% @courses.each do |course| %>
 
+  <% next if course.hidden_from_students? %>
+
   <div class="card border-primary">
     <div class="card-body">
       <h4 class="card-title"><%= course.title %></h4>
