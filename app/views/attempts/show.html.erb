@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <h1 class="display-4"> <%= @question.title %> </h1>
   <p>  (<%= @question.type %>) Assigned to course:   <%= @course.nil? ? "None" : @course.title %></p>
-  <p class="lead"><%= simple_format h @question.description %></p>
+  <p class="lead"><%= simple_format(@question.description) %></p>
 
   <% show_correct_answer = @course.can_see_correct_answers? %>
   <p> Answers:</p>
