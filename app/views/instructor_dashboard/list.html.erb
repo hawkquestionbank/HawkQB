@@ -24,6 +24,7 @@
       <td><%= link_to 'Manage Registrations', courses_manage_registrations_path(:id => course.id), method: :get, class: "text-white" %> </td>
       <td><%= link_to 'Manage Micro-credentials', micro_credentials_manage_course_micro_credentials_path(:course_id => course.id), method: :get, class: "text-white" %> </td>
       <td><%= link_to 'Manage questions', questions_manage_questions_path(:course_id => course.id), method: :get, class: "text-white" %> </td>
+      <td><%= link_to 'View scores', attempts_view_scores_path(:course_id => course.id), method: :get, class: "text-white" %> </td>
     </tr>
   <% end %>
 

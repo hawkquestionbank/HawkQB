@@ -1,6 +1,6 @@
 class AttemptsController < ApplicationController
 
-  access instructor: :all, admin: :all, student: :all
+  access instructor: :all, admin: :all, student: [:index, :new, :create, :show, :redirect_to_attempts_show]
 
   # GET /attemps
   def index
@@ -67,6 +67,10 @@ class AttemptsController < ApplicationController
     question_id = params[:question_id]
     latest_attempt = Attempt.where(:user_id=>user_id, :question_id=>question_id).order("id desc").first
     redirect_to attempt_path latest_attempt
+  end
+
+  def view_scores
+    @course = Course.find(params[:course_id])
   end
 
   private
