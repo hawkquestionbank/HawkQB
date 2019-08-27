@@ -1,6 +1,5 @@
 <h1>View scores for: <%= @course.title %></h1>
 
-<%= @course_score_summary %>
 <table class="table table-hover">
 
   <thead>
@@ -21,4 +20,11 @@
       <% end %>
     </tr>
   <% end %>
+
+  <tr>
+    <th scope="col">Total</th>
+    <% @students.each do |student| %>
+      <th scope="col"><%= total_score_in_course(@course_score_summary, student) %></th>
+    <% end %>
+  </tr>
 </table>
