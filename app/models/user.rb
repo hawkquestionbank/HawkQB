@@ -121,4 +121,18 @@ class User < ActiveRecord::Base
     end
     closed_questions_in_course
   end
+
+  def course_question_scores course
+    personal_score_hash = {}
+    course.questions.each do |question|
+      all_attempts_on_this_questions = Attempt.where(user_id: self.id, question_id: question.id).order("id DESC")
+      latest_attempt_score = all_attempts_on_this_questions.empty? ? nil : all_attempts_on_this_questions.first.score
+      personal_score_hash[question.id] = {}
+      personal_score_hash[question.id]["latest_score"] = latest_attempt_score
+      personal_score_hash[question.id]["attempts_id"] = all_attempts_on_this_questions.empty? ? [] : all_attempts_on_this_questions.pluck(:id)
+    end
+
+    personal_score_hash
+  end
+
 end

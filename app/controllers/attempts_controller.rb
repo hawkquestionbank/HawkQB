@@ -71,6 +71,9 @@ class AttemptsController < ApplicationController
 
   def view_scores
     @course = Course.find(params[:course_id])
+    @course_score_summary = @course.student_score_details_as_hash
+    @students = @course.users.order(:id)
+    @questions = @course.questions.order(:id)
   end
 
   private

@@ -48,4 +48,16 @@ class Course < ActiveRecord::Base
       DateTime.now > self.hide_from_students_after
     end
   end
+
+  def student_score_details_as_hash
+    student_score_hash = {}
+    self.users.each do |student|
+      # add students' question taking history to the hash
+      # student id as key
+      # student's question taking history (which is also a hash) as value
+      student_score_hash[student.id] = student.course_question_scores(self)
+    end
+    student_score_hash
+  end
+
 end

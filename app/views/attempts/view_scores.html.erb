@@ -1,2 +1,24 @@
 <h1>View scores for: <%= @course.title %></h1>
 
+<%= @course_score_summary %>
+<table class="table table-hover">
+
+  <thead>
+  <tr>
+    <th scope="col">Question title</th>
+    <% @students.each do |student| %>
+      <th scope="col"><%= student.full_name %></th>
+    <% end %>
+  </tr>
+  </thead>
+
+  <% @questions.each do |question| %>
+    <tr>
+      <td><%= question.title%></td>
+
+      <% @students.each do |student| %>
+        <td><%=@course_score_summary[student.id][question.id]["latest_score"].nil? ? 0 : @course_score_summary[student.id][question.id]["latest_score"] %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
