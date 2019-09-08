@@ -4,6 +4,7 @@
 
 <% closed = @course.closed_to_attempts%>
 <% can_see_correct_answers = @course.can_see_correct_answers? %>
+<% can_see_correct_or_wrong = @course.can_see_correct_or_wrong?%>
 
 <table class="table table-hover table-striped">
   <thead>
@@ -27,13 +28,13 @@
             <%= render "closed_icon" %>
           <% end %>
 
-          <% if show_correct_wrong_icon(personal_attempt_history, question)== :correct and can_see_correct_answers%>
+          <% if show_correct_wrong_icon(personal_attempt_history, question)== :correct and can_see_correct_or_wrong%>
             <%= render "correct_icon", :can_see_correct_answers => can_see_correct_answers, :question_id => question.id %>
-          <% elsif show_correct_wrong_icon(personal_attempt_history, question)== :wrong and can_see_correct_answers%>
+          <% elsif show_correct_wrong_icon(personal_attempt_history, question)== :wrong and can_see_correct_or_wrong%>
             <%= render "wrong_icon", :can_see_correct_answers => can_see_correct_answers, :question_id => question.id%>
           <% end %>
 
-          <% if not can_see_correct_answers %>
+          <% if not can_see_correct_or_wrong %>
             score is hidden
           <% end %>
 
