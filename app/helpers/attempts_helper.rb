@@ -46,7 +46,7 @@ module AttemptsHelper
 
   def show_correct_wrong_icon(personal_attempt_history, question)
     if personal_attempt_history.key?(question.id)   # if the user has taken this question b4
-      if personal_attempt_history[question.id][:score] == 1  # if there is a correct attempt --> false
+      if personal_attempt_history[question.id][:score] == 1  # if there is a correct attempt
         :correct
       else
         :wrong
