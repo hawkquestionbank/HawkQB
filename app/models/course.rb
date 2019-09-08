@@ -26,12 +26,28 @@ class Course < ActiveRecord::Base
   end
 
   def can_see_correct_answers?
-    # Determine whether to display
+    # Determine whether to display correct answers to students
     # if this course is an **exam** (only), compare current time and can_view_answers_after and close_to_attempts, which ever is later
     # if this course is **not** an exam, can_view_answers_after is not empty, compare current time and can_view_answers_after
     # otherwise, by default, students **cannot** see correct answers
     if self.is_an_exam
-      DateTime.now > self.can_view_answers_after and DateTime.now > self.can_view_answers_after
+      DateTime.now > self.can_view_answers_after and DateTime.now > self.close_to_attempts
+    elsif self.can_view_answers_after.nil?
+      false
+    elsif not self.can_view_answers_after.nil?
+      DateTime.now > self.can_view_answers_after
+    else
+      false
+    end
+  end
+
+  def can_see_correct_or_wrong?
+    # Determine whether to display correct or wrong icons
+    # if this course is an **exam** (only), compare current time and can_view_answers_after and close_to_attempts, which ever is later
+    # if this course is **not** an exam, can_view_answers_after is not empty, compare current time and can_view_answers_after
+    # otherwise, by default, students **cannot** see correct answers
+    if self.is_an_exam
+      DateTime.now > self.can_view_answers_after and DateTime.now > self.close_to_attempts
     elsif self.can_view_answers_after.nil?
       true   # if this course has can_view_answers_after as nil, always show an attempt is right or wrong right after it is submitted
     elsif not self.can_view_answers_after.nil?
