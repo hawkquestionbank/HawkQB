@@ -48,12 +48,8 @@ class Course < ActiveRecord::Base
     # otherwise, by default, students **cannot** see correct answers
     if self.is_an_exam
       DateTime.now > self.can_view_answers_after and DateTime.now > self.close_to_attempts
-    elsif self.can_view_answers_after.nil?
-      true   # if this course has can_view_answers_after as nil, always show an attempt is right or wrong right after it is submitted
-    elsif not self.can_view_answers_after.nil?
-      DateTime.now > self.can_view_answers_after
     else
-      false
+      true
     end
   end
 
