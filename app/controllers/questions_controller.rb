@@ -142,7 +142,7 @@ class QuestionsController < ApplicationController
   # manage question associated to a course
   def manage_questions
     @course = Course.find(params[:course_id])
-    @questions = @course.questions
+    @questions = @course.questions.order("id")
   end
 
   # DELETE /questions/1
