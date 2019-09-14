@@ -51,7 +51,7 @@ class QuestionsController < ApplicationController
     if not @course.nil? and not @course_options.include?([@course.title, @course.id])
       @course_options << [@course.title, @course.id]
     end
-    @question_micro_credential_ids = @question.micro_credentials.map(&:id)
+    @question_micro_credential_ids = @question.micro_credentials.map(&:id).sort
   end
 
   # POST /questions
