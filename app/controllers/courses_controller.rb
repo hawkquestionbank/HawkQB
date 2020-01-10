@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :manage_registrations, :add_student_using_email, :drop_student]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :manage_registrations, :add_student_using_email, :drop_student, :clone]
   access all: [:show], instructor: {except: [:index]}, admin: :all, student: [:self_register_using_token]
 
   # GET /courses
@@ -152,6 +152,38 @@ class CoursesController < ApplicationController
     end
   end
 
+  # this is a deep clone which copies:
+  # course
+  # questions
+  # answers associated to the copied questions
+  # micro-credentials
+  # micro-credential_maps which connects the copied course and copied micro-credentials
+  # question_micro_credentials which connectes the copied questions and copied micro-credentials
+  def clone
+    #begin
+      # clone course
+      cloned_course = @course.dup()
+      cloned_course.title = @course.title + " cloned"
+      cloned_course.save
+
+      question_id_dict = {} # hash that maps the original_question_id => cloned_question_id
+      @course.questions.each do |question|
+        cloned_question = question.dup()
+        cloned_question.copied_from_id = question.id
+        cloned_question.course_id = cloned_course.id
+        cloned_question.save
+        question_id_dict[question.id] = cloned_question.id  # add original_question_id => cloned_question_id
+      end
+
+      print '======================'
+      print question_id_dict
+      print '======================'
+
+      redirect_to edit_course_path(cloned_course), notice: 'Course was successfully created. You are in the page of editing the cloned course now.'
+    #rescue
+      #format.html { redirect_to(redirect_to_dashboard, alert: 'Course clone was not successfully done, but part of the data could have been cloned.') }
+    #end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
