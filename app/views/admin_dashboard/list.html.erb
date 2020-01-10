@@ -24,8 +24,9 @@
       <td> <%= time_ago_in_words(course.updated_at) %> </td>
       <td> <%= course.creator.full_name %> </td>
       <td><%= link_to 'Edit', edit_course_path(course) %></td>
-      <td><%= link_to 'Manage Registrations', courses_manage_registrations_path(:id => course.id), method: :get %> </td>
+      <td><%= link_to 'Manage registrations', courses_manage_registrations_path(:id => course.id), method: :get %> </td>
       <td><%= link_to 'Manage questions', questions_manage_questions_path(:course_id => course.id), method: :get %> </td>
+
     </tr>
   <% end %>
 
