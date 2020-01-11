@@ -164,8 +164,8 @@ class CoursesController < ApplicationController
       # clone course
       cloned_course = @course.dup()
       cloned_course.title = @course.title + " cloned"
+      cloned_course.token = '' # course cannot have duplicated tokens
       cloned_course.save
-      cloned_course = Course.last  # get the newest course from DB (not necessary in development)
 
       question_id_dict = {} # hash that maps the original_question_id => cloned_question_id
       @course.questions.each do |question|  # clone questions
