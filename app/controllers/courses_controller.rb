@@ -167,7 +167,7 @@ class CoursesController < ApplicationController
       cloned_course.save
 
       question_id_dict = {} # hash that maps the original_question_id => cloned_question_id
-      @course.questions.each do |question|
+      @course.questions.each do |question|  # clone questions
         cloned_question = question.dup()
         cloned_question.copied_from_id = question.id
         cloned_question.course_id = cloned_course.id
@@ -175,9 +175,33 @@ class CoursesController < ApplicationController
         question_id_dict[question.id] = cloned_question.id  # add original_question_id => cloned_question_id
       end
 
-      print '======================'
-      print question_id_dict
-      print '======================'
+      question_id_dict.each_key do |original_question_id| # clone answers
+        answers = Answer.where(:question_id => original_question_id)
+        answers.each do |answer|
+          cloned_answer = answer.dup()
+          cloned_answer.question_id = question_id_dict[original_question_id] # associate to new question_id
+          cloned_answer.save
+        end
+      end
+
+      micro_credential_id_dict = {} # hash that maps original_mc_id => cloned_mc_id
+      @course.micro_credentials.each do |micro_credential| # clone micro_credentials
+        cloned_micro_credential = micro_credential.dup()
+        cloned_micro_credential.save
+        micro_credential_id_dict[micro_credential.id] = cloned_micro_credential.id
+
+        # create new micro_credential_map record course <-> micro_credential
+        MicroCredentialMap.new(micro_credential_id: cloned_micro_credential.id, course_id: cloned_course.id).save
+      end
+
+      @course.questions.each do |question|  # clone question_micro_credentials
+        question.question_micro_credentials.each do |original_question_micro_credential|
+          # find the original mc for the original question
+          original_mc_id = original_question_micro_credential.micro_credential_id
+          QuestionMicroCredential.new(micro_credential_id: micro_credential_id_dict[original_mc_id],
+                                      question_id: question_id_dict[question.id]).save
+        end
+      end
 
       redirect_to edit_course_path(cloned_course), notice: 'Course was successfully created. You are in the page of editing the cloned course now.'
     #rescue
