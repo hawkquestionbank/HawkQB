@@ -77,3 +77,6 @@ gem 'simple_form', '~> 4.1'
 
 # Icons
 gem "font-awesome-rails"
+
+# D3.js support
+gem 'd3-rails', '~> 4.1'
