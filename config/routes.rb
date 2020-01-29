@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
   get 'admin_dashboard/list'
   get 'student_dashboard/list'
+  get 'student_dashboard/individual_progress'
   get 'instructor_dashboard/list'
 
   get "attempts/view_scores"

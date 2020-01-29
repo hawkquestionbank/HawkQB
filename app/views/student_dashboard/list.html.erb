@@ -40,6 +40,8 @@
       <% end %>
 
       <%= link_to "Review core competencies", micro_credentials_study_path(:course_id => course.id), class: "card-link"%>
+      <%= link_to "Progress", student_dashboard_individual_progress_path(:course_id => course.id), class: "card-link"%>
+
       <% if not course.can_view_answers_after.nil? and DateTime.now>course.can_view_answers_after %>
         <a href="#" class="card-link">Review questions</a>
       <% end %>

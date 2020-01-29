@@ -4,4 +4,8 @@ class StudentDashboardController < ApplicationController
     # courses that the current user(student) has registered for
     @courses = current_user.courses
   end
+
+  def individual_progress
+
+  end
 end
