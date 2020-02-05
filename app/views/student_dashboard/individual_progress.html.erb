@@ -5,13 +5,17 @@
   }
 </style>
 
-<svg id="fillgauge1" width="97%" height="350"></svg>
+<H2> Your data analytics results in <%= @course.title %> </H2>
+
+<H5> Your score: <%= @total_percentage %> </H5>
+
+<svg id="fillgauge1" width="20%" height="250"></svg>
 <script src="https://d3js.org/d3.v3.min.js" language="JavaScript"></script>
 
 <script src="liquidFillGauge.js" language="JavaScript"></script>
 
 <script language="JavaScript">
-    loadLiquidFillGauge("fillgauge1", 40); // Gauge number
+    loadLiquidFillGauge("fillgauge1", <%= @total_percentage %>); // Gauge number
 
 
     function liquidFillGaugeDefaultSettings() {
