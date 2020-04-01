@@ -16,7 +16,7 @@ class StudentDashboardController < ApplicationController
 
   private
   def prepare_aster_csv (course)
-    asterplot_colors = ["#78C2AD","#56CC9D","#FFCE67","#FCDE9C","F3969A","F4BBD3","#FF7851","#FF7851","BF1519","#6CC3D5","#3D92A3","#343A40","#020202","#F8F9FA","#53A548","#888888","#E6CCBE","#C29878","#5F5449","#9278C2","#411E59"]
+    asterplot_colors = ["#FEF200","#CADB2A","#8FC740","#3BB44A","#00A650","#01A99C","#00AAC3","#00B0EB","#008FD3","#0072BB","#2E3190","#652D90","#91268E","#BD1B8B","#EC0972","#EC1A41","#EC1D25","#F36523","#F8931F","#FEC10E"]
 
     questions = course.questions
     micro_credentials = course.micro_credentials
