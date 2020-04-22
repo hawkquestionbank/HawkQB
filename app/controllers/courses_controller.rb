@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :manage_registrations, :add_student_using_email, :drop_student, :clone]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :manage_registrations, :add_student_using_email, :drop_student, :clone, :micro_credential_competency]
   access all: [:show], instructor: {except: [:index]}, admin: :all, student: [:self_register_using_token]
 
   # GET /courses
@@ -208,6 +208,12 @@ class CoursesController < ApplicationController
     #rescue
       #format.html { redirect_to(redirect_to_dashboard, alert: 'Course clone was not successfully done, but part of the data could have been cloned.') }
     #end
+  end
+
+  def micro_credential_competency
+    @heatmap_tsv = 'MC\tstudent\tvalue\n1\t1\t0\n1\t2\t100'
+    @students = "stu1 stu2 stu3 stu4" #%w["Stu1", "Stu2", "Stu3", "Stu4"]
+    @micro_credentials = "Python1 Python2 Python3 Python4 Python5 Python6 Python7 Python8 Python9 Python10 Python11 Python12 Python13 Python14 Python15 Python16 Python17 Python18 Python19 Python20"
   end
 
   private
